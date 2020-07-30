@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/07/30/siteBuilding/</loc>
+    
+    <lastmod>2020-07-30T15:19:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/02/05/PaperReading/RNN%20Prediction%20of%20TCP%20Transmission%20States(NCA'18)/</loc>
     
     <lastmod>2020-07-30T14:25:46.000Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://yoursite.com/cv/index.html</loc>
     
     <lastmod>2020-07-30T14:03:32.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/07/30/test/</loc>
-    
-    <lastmod>2020-07-30T13:52:16.000Z</lastmod>
     
   </url>
   
