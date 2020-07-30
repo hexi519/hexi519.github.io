@@ -3,48 +3,45 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Jinzhe Zeng's Blog
-subtitle: 苟利国家生死以，岂因祸福避趋之
-description: PhD student at Rutgers University
-keywords: Jinzhe Zeng Blog
-author: Jinzhe Zeng
-language:
+title: Hesy's Blog
+subtitle: Seek for your love
+description: some thoughts to share
+keywords:
+author: Hesy
+language: 
   - en
   - zh-CN
-timezone: Asia/Shanghai
-
-# URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://njzjz.win
-root: /
-permalink: :year/:month/:day/:title/
-permalink_defaults:
+# timezone: Asia/Shanghai
 
 # Directory
-source_dir: source
-public_dir: public
-tag_dir: tags
-archive_dir: archives
-category_dir: categories
-code_dir: downloads/code
-i18n_dir: :lang
-skip_render:
+# Directory
+source_dir: source  # 资源文件夹，这个文件夹用来存放博客内容
+public_dir: public  # 公共文件夹，这个文件夹用来存放生成的站点静态文件
+tag_dir: tags # 标签文件夹
+archive_dir: archives # 归档文件夹
+category_dir: categories  # 分类文件夹
+code_dir: downloads/code  # Include code文件夹
+i18n_dir: :lang # 国际化文件夹，存放各种语言定义
+skip_render:  # 跳过指定文件的渲染
   - 404.html
   - cv/*.html
   - redirect/*
   - now.json
 
 # Writing
-new_post_name: :title.md # File name of new posts
-default_layout: post
-titlecase: false # Transform title into titlecase
-external_link: true # Open external links in new tab
-filename_case: 0
-render_drafts: false
-post_asset_folder: false
-relative_link: false
-future: true
-highlight:
+new_post_name: :title.md # 新文章的文件名称
+default_layout: post  # 预设布局
+titlecase: false # 把标题转换为 title case
+external_link:
+  enable: true # 在新标签中打开链接
+  field: site # Apply to the whole site
+  exclude: ''
+filename_case: 0  # 把文件名称转换为 (1) 小写或 (2) 大写
+render_drafts: false  # 显示草稿
+post_asset_folder: false   # 启动 Asset 文件夹
+relative_link: false  # 把链接改为与根目录的相对位址
+future: true  # 显示未来的文章
+highlight:  # 代码块的设置
   enable: true
   line_number: true
   auto_detect: true
@@ -52,7 +49,7 @@ highlight:
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
-# per_page: Posts displayed per page. (0 = disable pagination)
+# 每页显示的文章量 (0 = 关闭分页功能)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ""
@@ -60,16 +57,18 @@ index_generator:
   order_by: -date
 
 # Category & Tag
-default_category: uncategorized
-category_map:
-tag_map:
+default_category: uncaegorized # 默认分类
+category_map: #  分类别名
+tag_map:  # 标签别名
 
 # Date / Time format
-## Hexo uses Moment.js to parse and display date
+## Hexo 使用 Moment.js 来解析和显示时间
 ## You can customize the date format as defined in
 ## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY-MM-DD
-time_format: HH:mm:ss
+date_format: YYYY-MM-DD # 日期格式
+time_format: HH:mm:ss # 时间格式
+## updated_option supports 'mtime', 'date', 'empty'
+updated_option: 'mtime'
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -85,14 +84,14 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/njzjz/njzjz.github.io
+  repo: https://github.com/hexi519/hexi519.github.io
   branch: master
 all_minifier: true
 
 #autoissue
-owner: njzjz-bot
-comment_repo: njzjz.github.io
-labels: ["Gitalk"]
+# owner: njzjz-bot
+# comment_repo: njzjz.github.io
+# labels: ["Gitalk"]
 
 sitemap:
   path: sitemap.xml
@@ -110,9 +109,11 @@ index2_generator:
       - category ECNUChemistry
       - category Internship
 
-symbols_count_time:
+symbols_count_time: # 字数统计、阅读时长
+ #文章内是否显示
   symbols: true
   time: true
+ # 网页底部是否显示
   total_symbols: true
   total_time: true
   exclude_codeblock: false
@@ -121,5 +122,5 @@ search:
   path: search.xml
   field: post
   content: true
+  limit: 100
 
-cdn_server: https://img.njzjz.win
