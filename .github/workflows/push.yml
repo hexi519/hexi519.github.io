@@ -1,5 +1,7 @@
-on: push
-name: Build and deploy on push
+name: Blog CI/CD
+
+on: push  # 触发操作
+
 jobs:
   yarnInstall:
     name: yarn install
@@ -9,10 +11,12 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12
+
     - run: npm install -g yarn
     - name: Get yarn cache
       id: yarn-cache
       run: echo "::set-output name=dir::$(yarn cache dir)"
+      # 设置包缓存目录，避免每次下载
     - uses: actions/cache@v1
       with:
         path: ${{ steps.yarn-cache.outputs.dir }}
@@ -23,6 +27,7 @@ jobs:
     - run: yarn build
       env:
         BUNDLESIZE_GITHUB_TOKEN: ${{ secrets.BUNDLESIZE_GITHUB_TOKEN }}
+        
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       if: github.ref == 'refs/heads/hexo'
