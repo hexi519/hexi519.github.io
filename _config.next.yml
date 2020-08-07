@@ -18,7 +18,7 @@ creative_commons: # 文章原创申明
 
 auto_excerpt:   # 是否自动截取摘要 
   enable: true # 设置为true则自动截取150字当做首页摘要 false的话得在正文里面写<!--more--> 进行分割，否则就是整篇出来...
-  length: 200   # 自动截取的字数
+  length: 150   # 自动截取的字数
 
 scheme: Gemini
 # scheme: Pisces 
