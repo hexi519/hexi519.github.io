@@ -9,6 +9,7 @@ toc: True
 tags: 
     - Network
     - Reinforcement Learning
+description: RL+CC
 ---
 # introduction
 >拥塞控制（CC）[12]是当今传输协议的基本组成部分，并强烈影响数据传输的性能。 CC最初建于1980年代以应对早期Internet的拥塞崩溃[17]，但CC仍在发展，并且出现了新的变体，例如BBR [1]或Vivace [3]。
