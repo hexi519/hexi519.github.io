@@ -2,93 +2,93 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2020/07/30/siteBuilding/</loc>
-    
-    <lastmod>2020-07-30T15:19:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/02/05/PaperReading/RNN%20Prediction%20of%20TCP%20Transmission%20States(NCA'18)/</loc>
-    
-    <lastmod>2020-07-30T14:25:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/02/05/PaperReading/DeePCCI(SIGCOMM'19)/</loc>
-    
-    <lastmod>2020-07-30T14:25:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/cv/index.html</loc>
-    
-    <lastmod>2020-07-30T14:03:32.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/categories/index.html</loc>
-    
-    <lastmod>2020-07-30T02:56:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/navi/index.html</loc>
     
-    <lastmod>2020-07-30T02:56:50.000Z</lastmod>
+    <lastmod>2020-08-07T07:41:52.179Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/proxy/index.html</loc>
     
-    <lastmod>2020-07-30T02:56:50.000Z</lastmod>
+    <lastmod>2020-08-07T07:41:52.179Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/softwares/index.html</loc>
     
-    <lastmod>2020-07-30T02:56:50.000Z</lastmod>
+    <lastmod>2020-08-07T07:41:52.179Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/tags/index.html</loc>
     
-    <lastmod>2020-07-30T02:56:50.000Z</lastmod>
+    <lastmod>2020-08-07T07:41:52.179Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/zh-CN/categories/index.html</loc>
     
-    <lastmod>2020-07-30T02:56:50.000Z</lastmod>
+    <lastmod>2020-08-07T07:41:52.179Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/zh-CN/cv/index.html</loc>
     
-    <lastmod>2020-07-30T02:56:50.000Z</lastmod>
+    <lastmod>2020-08-07T07:41:52.179Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/zh-CN/softwares/index.html</loc>
     
-    <lastmod>2020-07-30T02:56:50.000Z</lastmod>
+    <lastmod>2020-08-07T07:41:52.179Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/zh-CN/tags/index.html</loc>
     
-    <lastmod>2020-07-30T02:56:50.000Z</lastmod>
+    <lastmod>2020-08-07T07:41:52.179Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/07/30/siteBuilding/</loc>
+    
+    <lastmod>2020-08-07T07:41:52.163Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/02/05/PaperReading/RNN%20Prediction%20of%20TCP%20Transmission%20States(NCA'18)/</loc>
+    
+    <lastmod>2020-08-07T07:41:52.163Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
+    
+    <lastmod>2020-08-07T07:41:52.163Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/cv/index.html</loc>
+    
+    <lastmod>2020-08-07T07:41:52.163Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/02/05/PaperReading/DeePCCI(SIGCOMM'19)/</loc>
+    
+    <lastmod>2020-08-07T07:41:52.159Z</lastmod>
     
   </url>
   
