@@ -2,79 +2,65 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/navi/index.html</loc>
-    
-    <lastmod>2020-08-07T11:03:44.294Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/proxy/index.html</loc>
-    
-    <lastmod>2020-08-07T11:03:44.294Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/softwares/index.html</loc>
-    
-    <lastmod>2020-08-07T11:03:44.294Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/tags/index.html</loc>
     
-    <lastmod>2020-08-07T11:03:44.294Z</lastmod>
+    <lastmod>2020-08-08T15:22:56.594Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/zh-CN/categories/index.html</loc>
     
-    <lastmod>2020-08-07T11:03:44.294Z</lastmod>
+    <lastmod>2020-08-08T15:22:56.594Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/zh-CN/tags/index.html</loc>
     
-    <lastmod>2020-08-07T11:03:44.294Z</lastmod>
+    <lastmod>2020-08-08T15:22:56.594Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2020/07/30/siteBuilding/</loc>
     
-    <lastmod>2020-08-07T11:03:44.278Z</lastmod>
+    <lastmod>2020-08-08T15:22:56.574Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2020/02/05/PaperReading/DeePCCI(SIGCOMM'19)/</loc>
+    <loc>http://yoursite.com/2020/08/08/PaperReading/Research-on-Transport-Control-and-Flow-Scheduling-in-Low-latency-Datacenter-Networks/</loc>
     
-    <lastmod>2020-08-07T11:03:44.278Z</lastmod>
+    <lastmod>2020-08-08T15:22:56.574Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2020/02/05/PaperReading/RNN%20Prediction%20of%20TCP%20Transmission%20States(NCA'18)/</loc>
+    <loc>http://yoursite.com/2020/08/07/Summary/CC%E5%B8%B8%E8%AF%86%E8%AE%B0%E5%BD%95/</loc>
     
-    <lastmod>2020-08-07T11:03:44.278Z</lastmod>
+    <lastmod>2020-08-08T15:22:56.574Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/08/08/Summary/python/</loc>
+    
+    <lastmod>2020-08-08T15:22:56.574Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/categories/index.html</loc>
     
-    <lastmod>2020-08-07T11:03:44.278Z</lastmod>
+    <lastmod>2020-08-08T15:22:56.574Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/cv/index.html</loc>
     
-    <lastmod>2020-08-07T11:03:44.278Z</lastmod>
+    <lastmod>2020-08-08T15:22:56.574Z</lastmod>
     
   </url>
   
