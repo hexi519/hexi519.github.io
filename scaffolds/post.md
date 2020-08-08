@@ -3,10 +3,9 @@ title: {{ title }}
 date: {{ date }}
 top: false
 cover: false
-password:
 toc: true
-mathjax: true
-summary:
-tags:
+mathjax:     true
 categories:
+description:
+tags:
 ---
