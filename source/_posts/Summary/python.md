@@ -1,8 +1,8 @@
-\---
+---
 
-title: python总结
+title:  python总结
 
-top: false
+top:  false
 
 cover: false
 
@@ -18,9 +18,8 @@ description: 关于python的总结
 
 tags:
 
-  \- Network
-
-\---
+   - Network
+---
 
 
 
