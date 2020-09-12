@@ -11,20 +11,28 @@ tags:
     - Network
 ---
 
-
-
-
-
-
-
+# 一些默认设置
 * [Sprint.net中统计的网络性能参数](https://www.sprint.net/sla_performance.php?network=sl) 
 * rtt普通情况下也就0.1s【CUBIC论文中写的】
   * BBR论文中表示，由于buffer是BDP的几个数量级，所以rtt从毫秒级别变成了秒级
 
 
+# How can we be aware of congestion
+* the internet is a **```decentralized```** system, and as a result of that, doesn’t have any central coordinator telling senders to slow down if link queues downstream of some sender are filling up.
+* There are two main indicators: **```packet loss```** and increased  **```round trip times```**  for packets. 
+	* If a sender notices packet loss, it’s a pretty good indicator that congestion is occuring. 
+	* Another consequence of queues filling up though is that if packets are spending more time in a queue before making it onto the link, the round trip time, which measures the time from when the sender sends a segment out to the time that it receives an acknowledgement, will increase.
+	
+	> summary：可以通过 **packet loss** 和 **RTT** 这两个现象来观察是否有congestion
 
-# pacing
 
+# 概念解释/辨析
+## sending rate & delivery rate
+* sending rate就是发送速率
+* delivery rate强调接收方收到的包的速率（你发出去但是人家不一定能收到不是
+
+
+## pacing
 * TCP的流控机制，基本上是有两种的，专业一点的说法分别叫做pure rate control和windows-based这两种
 	- pure rate control 
 		+ 告诉你sender一个发送速率(bottleneck bandwidth)，sender的发送速率不超过这个确定值。
@@ -37,44 +45,22 @@ tags:
 	- paing需要优化嘛？需要。 更多的可以看这个[专栏](https://zhuanlan.zhihu.com/p/30741073)搜集的paper  
 
 
-
-
-
-# How can we be aware of congestion
-
-* the internet is a **```decentralized```** system, and as a result of that, doesn’t have any central coordinator telling senders to slow down if link queues downstream of some sender are filling up.
-* There are two main indicators: **```packet loss```** and increased  **```round trip times```**  for packets. 
-	* If a sender notices packet loss, it’s a pretty good indicator that congestion is occuring. 
-	* Another consequence of queues filling up though is that if packets are spending more time in a queue before making it onto the link, the round trip time, which measures the time from when the sender sends a segment out to the time that it receives an acknowledgement, will increase.
-	
-	> summary：可以通过 **packet loss** 和 **RTT** 这两个现象来观察是否有congestion
-
-
-
-# sending rate & delivery rate
-* sending rate就是发送速率
-* delivery rate强调接收方收到的包的速率（你发出去但是人家不一定能收到不是
-
-
-
-# ACK compression
+## ACK compression
 * 由于中间链路的缓存以及和其他TCP连接一起共享缓存等原因，可能会导致ACK报文成堆到达发送端。这种场景我们就称呼为ACK压缩。
 * i.e. 一个TCP发送者的 自计时取决于到来的，由接收机按照相同时间间隔生成的ACK。如果这些的ACK通过网络过境期间存在一些开销在队列中，但是，它们的间隔可能会改变。当ACK的到达间距小于它们发送的间距，发送者可能会被误导，发送比网络可以接受的更多的数据，这可能导致堵塞和效率损失。
 * 于ACK compression场景，reno拥塞控制就是逐个处理每个ACK报文，这样就会导致拥塞窗口突然增大，发送端突然发出大量的TCP报文，这种突然发出大量数据的行为我们称呼为burst，影响网络平稳。另外一方面ACK compression还会影响RTT估计，之前我们介绍过有些拥塞控制算法基于时延来来估计网络拥塞情况，因此 ACK compresion还会影响这类基于时延的拥塞控制算法的性能。
 
 
-
+## 数据平面&控制平面
+除了控制平面(Control Plane)和数据平面(Data Plane)还有管理平面(Management Plane)。数据平面又叫转发平面(Forwarding Plane),通过查看收到流量的目的地址，按照转发表(forwarding table)来处理流量的去向。可能转发流量去一个出接口，可能丢弃流量，或者送去控制平面做进一步处理。控制平面维持数据平面操作所需的必要信息。 这些信息通过协议和算法，收集和计算得来。网络节点间的控制平面能相互交换信息。这些信息被处理之后用于建立不同的表来帮助数据平面的流量操作。除了EIGRP, OSPF, BGP，PIM, HSRP等3层协议以外，CDP,UDLD,LACP,ARP,STP,VLAN等2层协议都属于控制平面。管理平面就是处理配置和监控控制平面。比如CLI, SNMP,XML, Wireshark,NetFlow,SPAN,API,JSON，NETCONF等等都属于管理平面。   
 
 
 # 做CC实验要注意的点
-
 * 不仅要测拥塞程度是否改进了
 * 还要测量收敛速度和fairness to existing congestion control protocols
 
 
-
 # 数据中心的CC
-
 ## learn from Lili Liu's paper
 * 一般**低延迟应用**的流**的 SLA** (Service Level Agreement)要求是 300ms 内完成
 
@@ -111,7 +97,6 @@ tags:
     * 因此，对于非截止时间流，较短的流完成时间和较高的吞吐率是他们的**主要性能指标**。
 
 
-
 # HULL
 * high-performance ultra-low latency
 * 他从三个层次来进行了设计：
@@ -123,8 +108,6 @@ tags:
 
 
 
-
 # some resources（博客资源 and so on）
-
 [squidarth:intro congestion-control](https://squidarth.com/rc/programming/networking/2018/07/18/intro-congestion.html)
 
