@@ -1,15 +1,24 @@
+---
+layout:     post
+title: Dynamic TCP Initial Windows and Congestion Control Schemes through Reinforcement Learning(JSAC'19)
+date:       2020-09-09 12:00:00
+author:     Xiaohui Nie,Guo chen, Dan Pei @ Tsinghua
+catalog: True
+category: PaperReading
+toc: True
+tags: 
+    - Network
+    - Reinforcement Learning
+    - Congestion Control
+description: RL+CC
+---
+
+
 * 不需要**客户端**或者中间件做任何改动 [ 惊了 ]
 
 > 为了解决挑战一，TCP-RL 修改了前端服务器的 Linux 内核代码和 Web Server 应用 Nginx的代码，使得服务器能够测量并且实时输出每条用户请求的 TCP 流信息(比如网络传输延迟、丢包率、RTT 等)。整个过程在服务器端完 成，不需要客户端或者中间件做任何改动。该数据采集和测量的工具不仅仅可以用于初始窗口的调整，也可用于 Web 服务的网络性能指标管理、监控、 故障诊断。
 
 * 对于问题的建模做的很好，而且作为了一个challenge
-
- 
-
-* 我觉得slides里面这个图做的很好
-
-![image-20200810092501270](C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20200810092501270.png)
-
 
 
 hesy:The long flow switch like this, the cold start process should not be ignored--"Use SmartIW
