@@ -1,5 +1,5 @@
 ---
-title: makeFileSummary
+title: Summary of makefile
 top: false
 cover: false
 toc: true
