@@ -49,6 +49,41 @@ tags:
     > uplink-filename 和 downlink-filename 指的是链路的带宽的变化情况
     >
     > --once 还没看到有人用
+    
+    * uplink-file和downlink-file的含义
+    
+      > ​	trace中的每一行代表一个数据包传递机会：在仿真中可以传递MTU大小的数据包的时间。 accounting是在字节级别完成的，每个delivery opportunity代表传递1500个字节的能力。
+      > ​	因此，trace中的一行可以代表着传递了几个较小的数据包，其大小总计为1500字节。 如果在某一个发送瞬间没有字节可以发送，则会浪费delivery opportunities。 当mm-link到达输入跟踪文件的末尾时，它将环绕到跟踪文件的开头。【这就是为什么  <(echo 1) 可以代替的原因12Mbps的原因】、
+      >
+      > e.g.    35 # 1504  代表着 35ms的时刻链路是可以发送的(link的处理能力)，但是没有并没有字节发送出去
+      >
+      > log file 格式：
+      >
+      >        # mahimahi mm-link (name of link) [/path/to/trace] > /path/to/log
+      >        # command line: [command used to run mm-link]
+      >        # queue: [queue information]
+      >        # init timestamp: [start time of mm-link]
+      >        # base timestamp: [starting log timestamp]
+      >        [# mahimahi config: [mahimahi shell prefix]]
+      >        [log lines]
+      >         
+      >        Each log line is one of the following:
+      >         
+      >        [timestamp] # packet_size
+      >         
+      >               An unused delivery opportunity.
+      >         
+      >        [timestamp] + packet_size
+      >         
+      >               A packet arrival to the link, it may be dropped later
+      >         
+      >        [timestamp] - packet_size
+      >         
+      >               A successful packet delivery
+      >         
+      >        [timestamp] d packets_dropped bytes_dropped
+      >         
+      >               A dropped packet (or multiple packets)
 
 * 分析工具
 
@@ -61,6 +96,8 @@ tags:
   * mm-delay-graph FileName
 
     > 这里的FileName是log文件
+
+
 
 ## pantheon-tunnel使用
 
@@ -77,13 +114,15 @@ tags:
 
 
 
-
-
-
-
 # pantheon平台本身的使用
 
-==目前打开了所有第三页的问题（也就是看了前90个帖子）==
+* 整体的一个逻辑是： 
+
+  > pantheon-tunnel相当于一个VPN ,会在每个包的外面套上一层，方便记录东西
+  >
+  > mahimahi是本地测试的时候才要使用的，嵌入到pantheon-tunnel里面的，which means 手动测试的时候应该是先起pantheon-tunnel，然后起mahimahi的link
+
+* ==目前打开了所有第三页的问题（也就是看了前90个帖子）==
 
 ## user group
 
@@ -122,9 +161,15 @@ tags:
       >  大部分情况下应该使用<cc>\_datalink\_run <ID> .log分析性能，您可以在[这里](https://pantheon.stanford.edu/faq/#raw-logs)找到其格式。除非您要执行自己的分析，否则可以只运行提供的脚本analyst.py。 <cc> \_mm\_datalink\_run <ID> .log主要用于可视化Mahimahi中的仿真带宽（以及经过测试的拥塞控制的吞吐量），因为只有mm-link知道input traces以及their bandwidth。
 
     * Pantheon仅正式支持Ubuntu
-
-
-
+    
+  * **重要的文件**
+  
+    * pantheon_perf.json  有所有流的多维数据指标
+  
+      ![image-20200913213241031](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202009/13/213247-575474.png)
+  
+  > 简单解释下：scheme正下面的一级里面的1，2，3代表着这是第几次run，其下面的1，2...，all代表着该次run的第几条流的stats & 平均的情况
+  
 * **代码细节**
 
   * [概念辨析](https://groups.google.com/g/pantheon-stanford/c/bMtttRHR4Os)：departure和arrival是从link的角度看的，departure表示离开链路，也就是多少包顺利到达接收方，arrival表示到达链路，相当于发送方发送了多少
@@ -137,8 +182,8 @@ tags:
     * [solution] 使用remote mode模式，which gets rid of mahimahi
   * 一些使用iperf发包的(bbr和cubic)会无法停止，请看[这个](https://groups.google.com/g/pantheon-stanford/c/aRL3VXw7PYE)
     * 缺点是：不停占用memory，which means 使用脚本跑程序的时候，后面几次的带宽会比前面几次下降 (如果CPU的内存比较小的情况下)
-    * [solution 1] 使用pkill -9 iperf ( which is a terrible way )
-    * [solution 2] 每次运行一个pantheon的实例，and kill it 
+    * [solution 1] 使用pkill -9 iperf ( which is a terrible way ) 【但这个问题就是不能并行了...】
+    * [solution 2] 每次运行一个pantheon的实例，and kill it  
     * [solution 3] 运行./test.py的时候使用--pkill-cleanup扩展命令行
     * **问题是**虽然这样能杀死iperf ，但是不能杀死loaded BBR(or other)
     * [有个补充知识](https://groups.google.com/g/pantheon-stanford/c/8YowTmHf3tA):大部分Pantheon里面的方法都不用iperf或者TCP去发包
@@ -168,7 +213,9 @@ tags:
 
   * [x] [如何正确调试](https://groups.google.com/g/pantheon-stanford/c/xEMtL0RJ6rM) 以及 给了存放observertary的[github repository](https://github.com/StanfordSNR/observatory) which  is also traces的数据存储地点
 
-  * [ ] [#符号以及进出口的符号解释](https://groups.google.com/g/pantheon-stanford/c/ZF9p6TlpL7k)
+  * [x] [#符号以及进出口的符号解释](https://groups.google.com/g/pantheon-stanford/c/ZF9p6TlpL7k)
+
+    > \# 就是表示这个机会没有被用上
 
   * [在云服务器上使用公有ip和本地的进行测试](https://groups.google.com/g/pantheon-stanford/c/z957ZO536fM)
 
@@ -176,6 +223,8 @@ tags:
 
   * [x] [Reproducing the plots from the Pantheon paper](https://groups.google.com/g/pantheon-stanford/c/za2kpKMbwF8) 牵扯到一些数学原理 ， 关于画图的解释
 
+    * [ ] ==后面得出一个这个图==
+    
     > 主要是这个解释，[2D正态分布数据绘制误差椭圆（置信椭圆）](https://www.visiondummy.com/2014/04/draw-error-ellipse-representing-covariance-matrix/),并且给出了画椭圆的[tool](https://github.com/StanfordSNR/pantheon/blob/scripts-for-paper/analysis/plot_json.py)
 
   
@@ -200,7 +249,7 @@ tags:
 
 * [x] [Error while running testing example](https://groups.google.com/g/pantheon-stanford/c/xIMd0icDi-8) : 需要安装mahimahi
 
-* [ ] [Issues getting tests to run](https://groups.google.com/g/pantheon-stanford/c/qOiba6TMpSM) 感觉这人问问题和回答的质量都挺高的
+* [x] [Issues getting tests to run](https://groups.google.com/g/pantheon-stanford/c/qOiba6TMpSM) 感觉这人问问题和回答的质量都挺高的
 
 * bbr代码相关
 
@@ -262,7 +311,7 @@ tags:
 
 * [x] What's "full-throttle "mean？ Does it mean that it lasts for the whole timescale or it send as many bytes as possible to fullfill the tunnel ?
 * [ ] generic CC是TCP-RL的那个算法么
-* [ ] 抖动如何添加
+* [ ] 抖动如何添加，看下trace库里面有没有
 
 
 
