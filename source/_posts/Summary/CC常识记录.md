@@ -55,7 +55,27 @@ tags:
 除了控制平面(Control Plane)和数据平面(Data Plane)还有管理平面(Management Plane)。数据平面又叫转发平面(Forwarding Plane),通过查看收到流量的目的地址，按照转发表(forwarding table)来处理流量的去向。可能转发流量去一个出接口，可能丢弃流量，或者送去控制平面做进一步处理。控制平面维持数据平面操作所需的必要信息。 这些信息通过协议和算法，收集和计算得来。网络节点间的控制平面能相互交换信息。这些信息被处理之后用于建立不同的表来帮助数据平面的流量操作。除了EIGRP, OSPF, BGP，PIM, HSRP等3层协议以外，CDP,UDLD,LACP,ARP,STP,VLAN等2层协议都属于控制平面。管理平面就是处理配置和监控控制平面。比如CLI, SNMP,XML, Wireshark,NetFlow,SPAN,API,JSON，NETCONF等等都属于管理平面。   
 
 
+
+## latency V.S. delay
+
+[refer](https://www.zhihu.com/question/59380674)
+
+* **latency**
+
+  指的是一个报文进入一台设备以致这台设备所经历的实践。实际上考验的是报文在这台设备上**消耗的时间**。时间越短，这台设备的性能越高。
+
+* **delay**
+
+  是指一个操作和另个一个操作之间**停顿的时间**。
+
+
+
+所以，latency是不可避免的正常开销，然而delay是额外的开销。
+
+
+
 # 做CC实验要注意的点
+
 * 不仅要测拥塞程度是否改进了
 * 还要测量收敛速度和fairness to existing congestion control protocols
 

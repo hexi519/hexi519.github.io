@@ -14,6 +14,17 @@ tags:
 
 
 
+# 收集的、待整理的文章
+
+先不看架构了，直接看Aurora了
+
+* wolfcs大佬的博客优先看，在reference那一节里面说了
+* https://www.cnblogs.com/ukernel/p/8976984.html
+* https://www.slidestalk.com/u42/t8efjk
+* https://blog.csdn.net/ktlifeng/article/details/78533355
+
+
+
 # reference
 
 * [sourceforge官网](https://udt.sourceforge.io/) 【05年出的，更新到09年】
@@ -27,6 +38,11 @@ tags:
   > <img src="https://img-blog.csdn.net/20170226170750116?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXNkZmdoamtsMTk5Mw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img" style="zoom:33%;" />
 
 * [x] 大佬系列博客：[udt源码分析](https://www.wolfcstech.com/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/page/5/) 后续想要读源码的话可以==再仔细看一下==（目前只是大概浏览了下）,which我觉得讲得真的不错
+
+  * [ ] 大佬还有系列在[oschina的平台上](https://my.oschina.net/wolfcs)
+
+    > * [ ] 发送窗口大小及发送速率的调整
+    > * [x] 实现分析总结
 
   > * UDT::startup()的调用过程为：UDT::startup()-> CUDT::startup() -> CUDTUnited::startup()。
   >
@@ -56,6 +72,8 @@ tags:
   >
   >       > 在接收队列CRcvQueue的worker线程中，接收到一条消息之后，它会根据消息的目标SocketID，及发送端的地址等信息，将消息以不同的方式进行dispatch
 
+* [ ] 这个[UDT源码剖析](https://www.cnblogs.com/ukernel/p/8976984.html)系列博客讲得很详细，相当于每个头文件在讲解了
+
 * [ ] [这个博客](http://www.wisestudy.cn/opentech/udt-congestionControlAlgorithm.html)相当于翻译了udt的论文
 
 * [ ] ==CS 224==的那个project是怎么整的 还得看下
@@ -69,8 +87,6 @@ tags:
 
   
 
-
-
 # 代码架构
 
 ```bash
@@ -82,14 +98,85 @@ tags:
 
 
 
+## 整体结构
+
+refer@WolfCS的[UDT实现分析总结](https://my.oschina.net/wolfcs/blog/512061)
+
+* **UDT Socket**是UDT中的核心，同时它也是一座桥梁，它将UDT的使用者应用程序与内部实现部分对于数据结构的管理、网络数据的传输连接起来。
+
+* **应用程序通过它**将数据放进发送缓冲待发送，或者借由它来获取从网络接收数据。而与网络进行交互的部分，则从它那里拿到要发送的数据进行发送，或者在收到packet时将packet dispatch给它。
+
+
+
+### 数据接收部分框架
+
+<img src="http://static.oschina.net/uploads/space/2015/0928/110552_YTa3_919237.jpg" alt="110552_YTa3_919237.jpg" style="zoom: 67%;" />
+
+
+
+### 数据发送部分框架
+
+<img src="http://static.oschina.net/uploads/space/2015/0928/135751_Ftye_919237.jpg" alt="img" style="zoom:67%;" />
+
+
+
 ## UDT socket structures
 
-![image-20200923200351000](C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20200923200351000.png)
+<img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202009/25/141253-492288.png" alt="image-20200923200351000" style="zoom: 80%;" />
 
 * socket文件描述符 +  错误码 + UDT socket集合 + TraceInfo ()
   * TraceInfo , performance的一些数据
-    * aggregate values
+    * **aggregate** values
+      
       * pktSndLossTotal 和 pktRcvLossTotal的区别？？这个RcvLoss怎么测试呢==？？==
-    * local values since last recorded time
-    * instant values at the time they are observed
-    * 
+      
+    * **local** values since last recorded time
+    
+      > 目前理解是一段时间的period算出来的值  ==??不是很确定==
+    
+    * **instant** values at the time they are observed
+    
+      
+
+
+
+## UDT socket functions
+
+* perfmon
+* 其他的大部i分都跟传统的socket编程的api一致
+
+
+
+
+## CC Base Class
+
+* ccc.h文件定义了父类
+* app/cc.h里面定义了一个基于CCC的拥塞控制方法，是一个good tutorial
+
+* 注意事项
+  * 不要在CCC内部或者它的继承类中调用regular UDT API, 会有未知错误发生
+  * CCCFactory<...>  是一个C++模板，不需要用类去继承他
+  * UDT不会立马释放CCCFactory<...>的实例，应该在application类里面释放，只要是在setsockopt（）后就可以
+
+
+
+# 一些中途冒出来的想法
+
+正如Sigcomm‘2020所示，我们的主机开销也算是延迟的一部分，那么我们的算法的耗时会不会影响整个delay的状况呢 ? 
+
+
+
+
+
+
+
+# 代码疑惑
+
+* [ ] 为什么可以不提前声明，也不include。虽然queue.h确实是在之前被编译的，但是这个就不需要指明依赖关系么
+
+  <img src="C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20200926102437531.png" alt="image-20200926102437531" style="zoom: 50%;" />
+
+* [ ] 又用到工厂模式了，可惜我还是不会（ 不过也不是重点，回头看下
+* [ ] 之前master说TCP buffer不需要很大，不停poll就行？？ why ?没有很理解
+* [ ] 用sourceCode整理一下代码结构
+

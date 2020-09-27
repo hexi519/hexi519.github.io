@@ -19,22 +19,21 @@ tags:
 * PCC-RL 和 PCC-Uspace都是从gitee里面fork的，都是9.16才导入到gitee里面的，此时这两个仓库已经很久没有更新了
 
 * 代码结构(PCC-Uspace)
+
+  * The code in this repository is broken into 3 parts:
+
+    1. The application code (located in src/app)
+    2. The UDT library code (located in src/core)
+    3. The PCC implementation (located in src/pcc)
+
+    > util文件主要是用于将代码export到quic以及emulab里面去的
+
+  * The PCC code is split into two main parts:
+
+    1. The rate control algorithm (located in the src/pcc/pcc_sender files)
+    2. The monitor interval and utility calculation algorithms (located in the src/pcc/pcc_monitor_interval_queue files)
+
   
-  > The code in this repository is broken into 3 parts:
-  >
-  > 1. The application code (located in src/app)
-  >
-  > 2. The UDT library code (located in src/core)
-  >
-  > 3. The PCC implementation (located in src/pcc)
-  >
-  > 
-  >
-  > The PCC code is split into two main parts:
-  >
-  > 1. The rate control algorithm (located in the src/pcc/pcc_sender files)
-  >
-  > 2. The monitor interval and utility calculation algorithms (located in the src/pcc/pcc_monitor_interval_queue files)
 
 * udt相关详见==[UDT]()==
 
@@ -61,6 +60,103 @@ tags:
 
 #  代码梳理
 
+## UDT部分
+
+* 跟UDTv4相比，src/core内改动比较大的是
+
+  * [ ] api.cpp
+  * [ ] buffer.cpp 
+  * [ ] core.cpp  改动相当大 ，不仅添加了一些属性，还添加了不少功能
+
+  >  ccc.cpp虽然改动大， 但是本身就是要被继承的，which means没关系
+
+
+
+## PCC
+### pcc_sender
+
+主要是PccSender类，which
+
+* **functions**
+
+  * 触发型
+    * void OnCongestionEvent (  )
+    * void OnPacketSent (  )
+  * 调整型
+    * QuicBandwidth PacingRate (  )
+    * QuicTime ComputeMonitorDuration (  )
+    * QuicTime GetCurrentRttEstimate (  )
+    * -void UpdateCurrentRttEstimate( )
+    * -bool ShouldCreateNewMonitorInterval(  )
+    * -QuicBandwidth UpdateSendingRate
+
+  * 总结
+
+    * 在事件（发包和ack (==目前不确定==这个CongestionEvent是不是ack获得的) ）发生的时候采取一些操作（比如信息统计( RTT估计值 )、调整结构信息）
+    * 调整结构信息
+      * sending rate (pacing) 的计算和调整
+      * MI大小调整 以及 ==创建(??)==新的MI
+      * RTT
+
+    
+
+* **member** 
+  * 观测值
+    * avg_rtt_
+    * sending_rate_
+  * 工具
+    * utility_calculator_  （PccUtilityCalculator
+    * rate_controller_  ( PccRateController
+      * rate_control_lock_  (mutex
+    * interval_queue_   （PccMonitorIntervalQueue
+    * interval_analysis_group_    （PccMonitorIntervalAnalysisGroup
+
+
+
+### rate-control
+
+* 在这里面发现了好几个Options的参数
+  * pypath 
+  * pyhelper ( default : pcc_rate_controller )
+
+* 利用了Python3.5进行了混编
+  * [ ] 先尝试下能不能换成3.6
+  * [ ] 不然就开始配环境
+
+
+
+
+# questions
+
+* [ ] sourceCodes 如何处理这么多宏定义的事情.... 一下子理清代码结构还是很重要的（lxg
+
+* C++特性
+
+  * [ ] chrome的Base库对于[]的使用方法  --》 跨平台开发
+
+    zyh给的[link](https://chromium.googlesource.com/chromium/src/+/refs/heads/master/base/export_template.h#40),针对QUIC_EXPORT_PRIVATE，有空学一手
+
+  * [ ] 哪些需要mutex的lock，哪些不需要，比如说为啥RTT更新就不需要
+
+    pcc_sender.cpp里面
+    
+  * [ ] 类的explicit到底有什么作用来着...还有=delete之类，还有GCC扩展之类
+  
+  * [ ] 这种单独的匿名的namespace意义何在？在pcc_lin_ucalc.cpp
+  
+    ```c
+    namespace {
+    // Coefficeint of the loss rate term in utility function.
+    const float kLossCoefficient = 5.0f;
+    // Coefficient of RTT term in utility function.
+    const float kRttCoefficient = 1.0/30000.0f;
+    }  // namespace
+    ```
+  
+    后面的都不在这个namespace里面，所以是文件里面的可以看到，文件外面的看不到 ?
+
+
+
 
 
 # 待整理
@@ -71,11 +167,12 @@ tags:
 ByteComparator.obj : error LNK2019: unresolved external symbol "int __cdecl does_not_exist(void)" (?does_not_exist@@YAHXZ) referenced in function "void __cdecl TextScan(struct FileTextStats &,char const *,char const *,bool,bool,__int64)" (?TextScan@@YAXAAUFileTextStats@@PBD1_N2_J@Z)
 ```
 
+* [ ] 利用了Python.h进行了混编
 * BBR的研究
   * [ ] [dog大佬](https://blog.csdn.net/dog250/article/details/72042516)关于BBR的问题剖析，我觉得挺好的，等当前这个demo做完，就看看这个，然后基于BBR改进
   * [ ] [这个](http://www.jeepxie.net/article/513417.html)讲了BBR ProbeMore的两阶段探测，里面的idea我确实也没有很理解。
 
-* [ ] [codespaces中文指南](https://docs.github.com/cn/github/developing-online-with-codespaces/about-codespaces)
+
 
 
 
