@@ -168,8 +168,6 @@ refer@WolfCS的[UDT实现分析总结](https://my.oschina.net/wolfcs/blog/512061
 
 
 
-
-
 # 代码疑惑
 
 * [ ] 为什么可以不提前声明，也不include。虽然queue.h确实是在之前被编译的，但是这个就不需要指明依赖关系么

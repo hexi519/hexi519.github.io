@@ -18,7 +18,7 @@ description: 关于python的总结
 
 tags:
 
-   - Network
+   - Language
 ---
 
 
@@ -37,13 +37,17 @@ tags:
 * [闭包](https://segmentfault.com/a/1190000004461404)
 	* 其中几个作用：节省开销，将函数与某个参数绑定
 	* 装饰器就是一种闭包
+	
+	
 
 
 # subprocess
 可以参考[这个](https://blog.csdn.net/a464057216/article/details/47355219)
 
 
+
 # joyful pandas
+
 > pandas的一些少见的注意事项，具体代码和例子来源于datawhale的[Joyful-Pandas系列](https://nbviewer.jupyter.org/github/GYHHAHA/Joyful-Pandas/tree/master/)
 
 ### 1.基础
@@ -90,7 +94,7 @@ tags:
 
 > 所有高级的api，包括seaborns在内，都是基于最基本的matplotlib开始的，那么一定都得先搞清matplotlib的基本概念（ax和fig等）
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200311202147484.png)
+<img src="https://img-blog.csdnimg.cn/20200311202147484.png" alt="在这里插入图片描述" style="zoom:67%;" />
 
 
 
@@ -107,7 +111,7 @@ tags:
 >
 > 其实把每一次 `subplot` 动作看作是独立的就行了，第一次将整个画板划分为1行3列完全不影响第二次划分为1行2列，它们仅影响当前划分后子图的大小。
 >
-> ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190930150818814.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxMzQ3ODY5,size_16,color_FFFFFF,t_70)
+> <img src="https://img-blog.csdnimg.cn/20190930150818814.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxMzQ3ODY5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" style="zoom:67%;" />
 
 
 

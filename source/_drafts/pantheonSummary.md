@@ -166,7 +166,7 @@ tags:
   
     * pantheon_perf.json  有所有流的多维数据指标
   
-      ![image-20200913213241031](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202009/13/213247-575474.png)
+      <img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202009/13/213247-575474.png" alt="image-20200913213241031" style="zoom:67%;" />
   
   > 简单解释下：scheme正下面的一级里面的1，2，3代表着这是第几次run，其下面的1，2...，all代表着该次run的第几条流的stats & 平均的情况
   
@@ -267,9 +267,17 @@ tags:
   * indigo代码相关
 
     * [ ] [about indigo's sender](https://groups.google.com/g/pantheon-stanford/c/J2aQp9Gt9EY)
-    * [ ] [Indigo的报错](https://groups.google.com/g/pantheon-stanford/c/ASAZdjq5-vA)
+    * [x] [Indigo的报错](https://groups.google.com/g/pantheon-stanford/c/ASAZdjq5-vA) 缺文件
     * [ ] [BDP计算相关的代码理解](https://groups.google.com/g/pantheon-stanford/c/b2ANo_shWS0)
     * [ ] [训练的文件 以及 test.py -t 可以调整Pantheon的测试时间](https://groups.google.com/g/pantheon-stanford/c/PL5a-UUy9jo)
+    
+    自己遇到的问题：
+    
+    ```bash
+    ImportError: cannot import name 'dense_features' from 'tensorflow.python.feature_column'
+    ```
+    
+    [解决方案](https://github.com/tensorflow/tensorflow/issues/32111)就是重装tensorflow和tensorflow-estimator
 
 
 
@@ -296,6 +304,52 @@ tags:
   * [ ] 网格搜索的实验设置上还是要参考下裴丹老师的文章
 
   * [ ] 用户态协议栈 -- quic
+
+
+
+## pantheon的实验进展
+
+前面第三方库的下载之类的就不说了
+
+* 安装依赖
+
+```bash
+# pattern
+## 安装依赖
+src/experiments/setup.py --install-deps (--all | --schemes "<cc1> <cc2> ...")
+## 环境准备
+src/experiments/setup.py [--setup] [--all | --schemes "<cc1> <cc2> ..."]
+
+# mine
+src/experiments/setup.py --install-deps --schemes "indigo"
+src/experiments/setup.py --setup --schemes "indigo"   # 除非重启，不然跑过一次就可以
+```
+
+* 测试命令
+
+```bash
+# pattern
+## 本地
+src/experiments/test.py local (--all | --schemes "<cc1> <cc2> ...")
+## 远程
+src/experiments/test.py remote (--all | --schemes "<cc1> <cc2> ...") HOST:PANTHEON-DIR
+
+# mine
+src/experiments/test.py local -h
+src/experiments/test.py local --schemes "indigo" --data-dir /data/indigoTime
+```
+
+* 分析
+
+```bash
+# pattern
+src/analysis/analyze.py --data-dir DIR
+
+# mine
+src/analysis/analyze.py --data-dir /data/indigoTime
+```
+
+目前indigo、cubic、pantheon的都已经安装好了（依赖、setup都已经准备好且测试过可以运行了）
 
 
 
@@ -395,4 +449,3 @@ tcpdump的流量没有背后的模式在里面，which means 没有办法学习�
 
 
 ==其实还是升窗 和降窗的事情，升窗修补一点，降窗修补一点？== 除此之外，中途是不是还得考虑别的情况，比如波动啥的。--》突然觉得升窗不需要管后续的情况，但是降窗要考虑啊。
-
