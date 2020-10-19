@@ -1,4 +1,3 @@
----
 title: gcc链接梳理
 top: false
 cover: false
@@ -8,8 +7,8 @@ date: 2020-09-18 22:34:22
 categories: Summary
 description: 动态链接和静态链接
 tags:
+
     - Compilation and Link
----
 
 # 基础知识
 ## reference
@@ -283,7 +282,7 @@ libz.so.1 => /lib64/libz.so.1 (0x00007fce5cce5000)
   
 * [x] 终于明白了为什么makefile里面有的地方不需要.h，有的地方需要了
 
-  <img src="C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20200918235509149.png" alt="image-20200918235509149" style="zoom:67%;" />
+  <img src="https://gitee.com/HesyH/Image-Hosting/raw/14ac540fae3bfde3bbaa6b7025ac4d365650fa7f/image4typora/202010/05/000501-970705.png"/>
 
   ​	写在依赖里面是为了及时的更新，是makefile的特性，跟gcc和g++的命令无关。本身cc -E 里面就会处理头文件的事情，which means 头文件不需要我们手动去指定依赖，其实代码里面写的很清楚了，编译器是知道的，而且结果很明显，确实是知道的（详见阮一峰的博客：[编译器的工作过程](http://www.ruanyifeng.com/blog/2014/11/compiler.html)中的“第五步 预处理”的剖析）
 

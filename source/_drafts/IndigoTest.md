@@ -37,15 +37,62 @@ tags:
 > 还是从Aurora上看到的..
 
 ```bash
-# pattern
+# pattern for indigo
 python train.py --ps-hosts 127.0.0.1:9000 --worker-hosts 127.0.0.1:8000 --username hesy --rlcc-dir /home/hesy/pro/pan/indigo/RLCC
+
+# pattern for a3c
+python train.py --ps-hosts 127.0.0.1:9123 --worker-hosts 127.0.0.1:8234 --username hesy --rlcc-dir /home/hesy/pro/pan/a3c_indigo
 
 # 设置并省略了些默认配置
 python train.py --ps-hosts 127.0.0.1:9000 --worker-hosts 127.0.0.1:8000
+
+# 单独来
+## server
+python /home/hesy/pro/pan/a3c_indigo/a3c/worker.py --ps-hosts 127.0.0.1:9123 --worker-hosts 127.0.0.1:8234 --job-name ps --task-index 0
+
+## worker
+python /home/hesy/pro/pan/a3c_indigo/a3c/worker.py --ps-hosts 127.0.0.1:9123 --worker-hosts 127.0.0.1:8234 --job-name worker --task-index 0
+
+# ps on g15
+python /home/hesy/pro/pan/a3c_indigo/a3c/worker.py --ps-hosts 12.12.12.115:9123 --worker-hosts 12.12.12.114:8234 --job-name ps --task-index 0
+
+# worker no g14
+python /home/hesy/pro/pan/a3c_indigo/a3c/worker.py --ps-hosts 12.12.12.115:9123 --worker-hosts 12.12.12.114:8234 --job-name worker --task-index 0
+
+# on one host
+python /home/hesy/pro/pan/a3c_indigo/a3c/train.py --ps-hosts 127.0.0.1:9123 --worker-hosts 127.0.0.1:8234 
+
+--job-name worker --task-index 0
+
+python /home/hesy/pro/pan/a3c_indigo/a3c/worker.py --ps-hosts 12.12.12.114:9123 --worker-hosts 12.12.12.115:8234 --job-name ps --task-index 0
+
+python /home/hesy/pro/pan/a3c_indigo/a3c/worker.py --ps-hosts 12.12.12.114:9123 --worker-hosts 12.12.12.115:8234 --job-name worker --task-index 0
 ```
 
 * 疑问
   * 看代码ps-hosts可以有多个啊，用逗号分隔的HOSTNAME:PORT对
+
+
+
+计时是从第15个step开始
+
+> 修改了动作，给链路加了抖动--》 12ms变化一次
+
+TF_CPP_MIN_LOG_LEVEL=1 
+
+python train.py --ps-hosts "127.0.0.1:9000" --worker-hosts "127.0.0.1:8000,127.0.0.1:8001,127.0.0.1:8002,127.0.0.1:8003,127.0.0.1:8004,127.0.0.1:8005,127.0.0.1:8006,127.0.0.1:8007,127.0.0.1:8008,127.0.0.1:8009,127.0.0.1:8010,127.0.0.1:8011">> trainLog 2>&1
+
+
+
+python train.py --ps-hosts "127.0.0.1:9000" --worker-hosts "127.0.0.1:8000,127.0.0.1:8001,127.0.0.1:8002,127.0.0.1:8003,127.0.0.1:8004,127.0.0.1:8005,127.0.0.1:8006,127.0.0.1:8007,127.0.0.1:8008,127.0.0.1:8009,127.0.0.1:8010,127.0.0.1:8011">> trainLog 2>&1
+
+
+
+python train.py --ps-hosts "127.0.0.1:9000" --worker-hosts "127.0.0.1:8000,127.0.0.1:8001" >> trainLog 2>&1
+
+python train.py --ps-hosts "127.0.0.1:9000" --worker-hosts "127.0.0.1:8002,127.0.0.1:8003,127.0.0.1:8004,127.0.0.1:8005" >> trainLog 2>&1
+
+
 
 
 
@@ -123,7 +170,11 @@ python train.py --ps-hosts 127.0.0.1:9000 --worker-hosts 127.0.0.1:8000
 
 ## a3c的修改
 
-* 
+* models.py	毕竟从Dagger改成了A3C
+* a3c.py和dagger.py差得也比较多
+* run_sender.py也差得比较多  Learner全都改了
+* train.py稍微改了下
+* worker.py 也改了不少...这...相当于全改了
 
 
 
@@ -132,8 +183,16 @@ python train.py --ps-hosts 127.0.0.1:9000 --worker-hosts 127.0.0.1:8000
 ## ask master
 
 * [ ] socket 网络编程那本书是不是不整网络编程就不用看？当作一本工具书？如果不是工具书，有啥需要重点看一下的么？或者了解下epoll的实现原理之类的？？
+
 * [ ] 一般了解一个架构你都从什么开始看，比如说网络的，就是从整体的框架（协议栈的层次）？还是说从想要修改的关键字开始修改啊... 或者有啥推荐的架构的工具么？比如sourceCodes？虽然UI很丑...但是他的UML图真的很香...不过似乎只能一个文件一个文件里面生成？
-  * [ ] 也ask下曦光 架构代码如何阅读
+  
+* [ ] 也ask下曦光 架构代码如何阅读
+  
+* [ ] 啊这merge还是不太行
+
+  基于vscode
+
+  基于命令行
 
 
 

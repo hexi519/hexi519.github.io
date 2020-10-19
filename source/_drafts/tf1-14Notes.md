@@ -31,7 +31,7 @@ tags:
 
   ![常用的资源列表](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202010/04/093411-914993.png)
 
-* with graph as de 作用==?==
+* with graph as default 作用==?==
 
 * 计算结果不是一个具体数字，而是一个张量的结构
 
@@ -378,6 +378,56 @@ Keras 、Estimator 、TFLearn，都是主要针对模型训练和模型定义进
 
 # 第十二章 Tensorflow计算加速
 
+* [ ] 前面讲了多GPU并行，代码里还有些没搞懂（TODO标签
+
+
+
+## 分布式GPU
+
+* tf.train.Server
+
+  * 创建一个本地集群（one node）
+
+    ```python
+    c = tf.constant("Hello, distributed TensorFlow!")
+    server = tf.train.Server.create_local_server()  # 用这个
+    # server.target 作为计算图(?)
+    sess = tf.Session(server.target)
+    print(sess.run(c))
+    ```
+
+  * 创建两个集群( two nodes )
+
+    ```python
+    # 任务1
+    c = tf.constant("Hello from server1!")
+    # 用tf.train.ClusterSpec管理集群资源
+    cluster = tf.train.ClusterSpec({"local": ["localhost:2222", "localhost:2223"]})
+    # 分布式节点就直接用tf.train.Server的构造函数
+    server = tf.train.Server(cluster, job_name="local", task_index=0)
+    sess = tf.Session(server.target, config=tf.ConfigProto(log_device_placement=True)) 
+    print(sess.run(c))
+    # 等待及群里其他节点加入
+    server.join()
+    ```
+
+---
+
+==[这个介绍贴子是我见到过最好的](https://zhuanlan.zhihu.com/p/35083779)==
+
+* [ ] [这个系列](https://www.cnblogs.com/hellcat/p/9194115.html#_label1_2)还没仔细看，但是瞄了眼感觉不错
+
+* 计算图内分布式（单机多GPU其实就是这种），计算图间分布式
+
+  ![img](https://pic4.zhimg.com/80/v2-50e3d5b2e1188fb69c830de93ae08aff_720w.jpg)
+
+  > 就是说`client`要跑计算时，其实要先要把计算图以及要执行的节点（Graph中的Node）发给`master`，`master`负责资源调度（就是这个计算该怎么执行，在哪些设备执行），最终的执行需要各个`worker`进程（使用本地设备执行计算），所以每个server会包含`master`和`worker`两个部分。关于`master`的具体作用，可以参考一下TF教程中的[TensorFlow Architecture](https://link.zhihu.com/?target=https%3A//www.tensorflow.org/extend/architecture)，不过这里贴一张图，大家意淫一下：
+
+* 主要是几个api搞不清
+  * tf.train.replica_device_setter函数，里面的worker_device参数，常用的是: /job:worker
+
+* 
+
 
 
 
@@ -394,7 +444,6 @@ Keras 、Estimator 、TFLearn，都是主要针对模型训练和模型定义进
 
     > 上述的默认都是False
 
-  * 
 
 
 
@@ -438,7 +487,7 @@ Keras 、Estimator 、TFLearn，都是主要针对模型训练和模型定义进
       print(c)
   ```
 
-  
+  ==发现这是jupyter的特性...== ( 直接写在py文件里面就不会 ) 回头有空查下为啥吧...jupyter真磨人...
 
 
 

@@ -2,7 +2,7 @@
 layout:     post
 title: Dynamic TCP Initial Windows and Congestion Control Schemes through Reinforcement Learning(JSAC'19)
 date:       2020-09-09 12:00:00
-author:     Xiaohui Nie,Guo chen, Dan Pei @ Tsinghua
+author:     Hesy
 catalog: True
 category: PaperReading
 toc: True

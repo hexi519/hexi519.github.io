@@ -1,5 +1,5 @@
 ---
-title: CC常识记录
+title: Network常识记录
 top: false
 cover: false
 toc: true
@@ -13,8 +13,11 @@ tags:
 
 # 一些默认设置
 * [Sprint.net中统计的网络性能参数](https://www.sprint.net/sla_performance.php?network=sl) 
-* rtt普通情况下也就0.1s【CUBIC论文中写的】
+* rtt普通情况下也就0.1s【CUBIC论文中写的】(数据中心中就是微秒级别)
   * BBR论文中表示，由于buffer是BDP的几个数量级，所以rtt从毫秒级别变成了秒级
+* DC中的带宽应该是10Gbps
+
+
 
 
 # How can we be aware of congestion

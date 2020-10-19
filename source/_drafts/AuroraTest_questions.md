@@ -32,10 +32,10 @@ tags:
   ./app/pccclient send 127.0.0.1 9000 --pcc-rate-control=python -pyhelper=loaded_client -pypath=/home/hesy/pro/pan/pantheon/third_party/PCC-RL/src/udt-plugins/testing/ --history-len=10 --pcc-utility-calc=linear --model-path=/home/hesy/pro/pan/pantheon/third_party/PCC-Uspace/icml_paper_model
   ```
 
-  在g8上就是
+  在g8上就是  ==要制定训练好的模型的地点鸭==
 
   ```
-  ./app/pccclient send 127.0.0.1 9000 --pcc-rate-control=python -pyhelper=loaded_client -pypath=/home/hesy/projects/PCC-RL/src/udt-plugins/testing/ --history-len=10 --pcc-utility-calc=linear --model-path=/home/hesy/projects/icml_paper_model
+  ./app/pccclient send 127.0.0.1 9000 --pcc-rate-control=python -pyhelper=loaded_client -pypath=/home/hesy/projects/PCC-RL/src/udt-plugins/testing/ --history-len=10 --pcc-utility-calc=linear --model-path=/home/hesy/pro/pan/pantheon/third_party/PCC-Uspace/icml_paper_model
   ```
 
 
@@ -265,3 +265,4 @@ ByteComparator.obj : error LNK2019: unresolved external symbol "int __cdecl does
     >
     > 2. 一般用法是：程序员把类型、ip地址、端口填充sockaddr_in结构体，然后强制转换成sockaddr，作为参数传递给系统调用函数
 
+z

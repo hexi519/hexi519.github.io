@@ -11,7 +11,10 @@ tags:
     - Network
 ---
 
+
+
 # 相关工具使用
+
 ## mahimahi使用
 
 * --meter-all 是可以显示记录数据并且交互式地把图画出来的
@@ -166,7 +169,7 @@ tags:
   
     * pantheon_perf.json  有所有流的多维数据指标
   
-      <img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202009/13/213247-575474.png" alt="image-20200913213241031" style="zoom:67%;" />
+      <img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202009/13/213247-575474.png" alt="image-20200913213241031" style="zoom:67%;" />	
   
   > 简单解释下：scheme正下面的一级里面的1，2，3代表着这是第几次run，其下面的1，2...，all代表着该次run的第几条流的stats & 平均的情况
   
@@ -255,17 +258,19 @@ tags:
 
   * [x] [要修改qdisc](https://groups.google.com/g/pantheon-stanford/c/Jpc367oTQeo) 以及一些修改的注意点
 
+    > sudo sysctl net.core.default_qdisc=fq
+
   * copa代码相关
 
     * [ ] [IndexError: list assignment index out of range](https://groups.google.com/g/pantheon-stanford/c/BZcydgF67bE) 给了一些代码调试上的建议
-
+  
       > 1. 测试Cubic whose dependencies少一些
       > 2. 两个terminal中跑copa的sender和receiver
-      > 3. 在mahimahi上跑copa
+    > 3. 在mahimahi上跑copa
       > 4. 测试下Pantheon tunnel
 
   * indigo代码相关
-
+  
     * [ ] [about indigo's sender](https://groups.google.com/g/pantheon-stanford/c/J2aQp9Gt9EY)
     * [x] [Indigo的报错](https://groups.google.com/g/pantheon-stanford/c/ASAZdjq5-vA) 缺文件
     * [ ] [BDP计算相关的代码理解](https://groups.google.com/g/pantheon-stanford/c/b2ANo_shWS0)
@@ -337,6 +342,9 @@ src/experiments/test.py remote (--all | --schemes "<cc1> <cc2> ...") HOST:PANTHE
 # mine
 src/experiments/test.py local -h
 src/experiments/test.py local --schemes "indigo" --data-dir /data/indigoTime
+
+# 测试MORL
+sudo /home/hesy/.conda/envs/pan/bin/python src/experiments/test.py local --schemes MORL
 ```
 
 * 分析
@@ -349,7 +357,7 @@ src/analysis/analyze.py --data-dir DIR
 src/analysis/analyze.py --data-dir /data/indigoTime
 ```
 
-目前indigo、cubic、pantheon的都已经安装好了（依赖、setup都已经准备好且测试过可以运行了）
+目前indigo、cubic、bbr、copa(remy) 、pantheon的都已经安装好了（依赖、setup都已经准备好且测试过可以运行了）
 
 
 
@@ -376,9 +384,17 @@ src/analysis/analyze.py --data-dir /data/indigoTime
 
 
 
-
-
 # 实验的设置
+
+## pantheon认为的维度
+
+<img src="C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20201006135023302.png" alt="image-20201006135023302" style="zoom:67%;" />
+
+* 瓶颈带宽、延迟、dropTailQueue、随机丢包率、是符合泊松分布还是等时的
+
+
+
+## 自己的
 
 * 缓冲/排队（ 影响BDP ）
 
@@ -402,9 +418,25 @@ src/analysis/analyze.py --data-dir /data/indigoTime
 
   > 这里还有--append-mm-cmds ' ... ' 的命令
 
+---
+
+queue [100,200,400]
+
+src/experiments/test.py local  --data-dir bbrJitter --schemes "bbr"   --append-mm-cmds '--downlink-queue=droptail --downlink-queue-args=packets=100 --uplink-queue=droptail --uplink-queue-args=packets=100'  
+
+src/experiments/test.py local  --data-dir bbrJitter --schemes "indigo"   --append-mm-cmds '--downlink-queue=droptail --downlink-queue-args=packets=100 --uplink-queue=droptail --uplink-queue-args=packets=100'
+
+----
+
+loss [0.0001,0.001,0.01]
+
+src/experiments/test.py local  --data-dir bbrLoss --schemes "bbr indigo"   --prepend-mm-cmds 'mm-loss uplink 0.001'
 
 
-**Peidan**：The synthetic network conditions consist of all the combinations of —— ~~(1, 5, 10, 20, 50, 70, 100, 150 and 200 Mbps)~~ (1 5 10 50 100 200Mpbs) bandwidths, ~~(10, 20, 40, 60, 80, 100, 150 and 200ms)~~ (10 20 40 80 100 200ms) RTTs and ~~(0, 1%, 2% and 10%)~~ (0 0.01 0.02 0.05) loss rate 【6 x 6 x 4】
+
+## Peidan
+
+The synthetic network conditions consist of all the combinations of —— ~~(1, 5, 10, 20, 50, 70, 100, 150 and 200 Mbps)~~ (1 5 10 50 100 200Mpbs) bandwidths, ~~(10, 20, 40, 60, 80, 100, 150 and 200ms)~~ (10 20 40 80 100 200ms) RTTs and ~~(0, 1%, 2% and 10%)~~ (0 0.01 0.02 0.05) loss rate 【6 x 6 x 4】
 
 BDP ( queue ) 是1，2，5，10 【这里还要看下别人的文章】
 
@@ -418,27 +450,75 @@ BDP ( queue ) 是1，2，5，10 【这里还要看下别人的文章】
 >
 > 而且还要check有没有性能下降 --》我觉得开完大组会再说吧 先走进一步的细节之处
 
-先画个总体的大的，然后再找下相应的情况的大小
-
-至于Aurora，发了邮件还没回
-
-还有Orca的集成，因为前面在pantheon这个平台上踩坑踩了不少，花了些时间整，昨天才开始配，还没配好。
-
-下周的话，按照这个思路去做，然后我寻思找orca或者是aurora的训练平台，感觉pantheon适合跑baseline的对比，但是不是很适合做训练，因为他的原理是....，我们可以得到的信息太少了。
 
 
+## indigo的实验设置
 
-tcpdump的流量没有背后的模式在里面，which means 没有办法学习啊
+* task 0
 
-后面维度大了以后，可能可视化的问题可以简单考虑下，不行就就直接用数据分析选10%低的数据出来好了。
+  * 小带宽，高延迟
 
+  * mm-**delay** **28** mm-**loss** uplink **0.0477** mm-**link** **0.57mbps****-possion.trace 0.57mbps-possion.trace  --uplink-**queue**=droptail --uplink-queue-args=packets=**14**
 
+    > 注意，queue这个参数应该是跟着mm-link的
 
-==周三结束后，还是要整体理清一下，这个实验思路到底是什么，Pantheon对后面来说是必须的，对其他的来说是必须的么...我只剩一个月了==
+    best_cwnd =5
 
-而且要想好，我这个MORL的思路是什么啊，如果不能做到整体向量比别人好，我的评价指标又该是什么？？
+  * mm-**delay** **88** mm-**link** **2.64**mbps-poisson.trace **2.64mbps**-poisson.trace  --uplink-**queue**=droptail --uplink-queue-args=packets=**130**
 
+    best_cwnd =40
 
+  * mm-**delay** **130** mm-**link** **3.04**mbps-poisson.trace **3.04mbps**-poisson.trace --uplink-**queue**=droptail --uplink-queue-args=packets=**426**
+
+    best_cwnd =70
+
+  * bandwidth = [5, 10, 20, 50]
+
+    delay = [10, 20, 40, 80]
+
+    ---
+
+  * mm-**delay** **27** mm-**link** **100.42mbps**.trace **100.42mbps**.trace --uplink-**queue**=droptail --uplink-queue-args=packets=**173**
+
+  * mm-**delay** **51** mm-**loss** uplink **0.0006** mm-**link** **77.72mbps**.trace 77.72mbps.trace--uplink-**queue**=droptail --uplink-queue-args=packets=**94**
+
+  * mm-**delay** **45** mm-**link** **114.68mbps**.trace **114.68mbps**.trace --uplink-**queue**=droptail --uplink-**queue**-args=packets=**450**
+
+  * bandwidth = [100, 200]
+
+    delay = [10, 20, 40, 80]
+
+  
+
+  ---
+
+  * 卧槽这都是小带宽啊.. 因为大带宽干不过BBR？
+
+  
+
+  
+
+## 我的调参设置
+
+* **大带宽**，高延迟 --> BDP不是很适应的那种
+
+* **高抖动** 
+
+  * [x] 造几个trace，在test里面看下（5ms对半 --》 训练时间和epoch 也加长哈  --> reward也变一下
+
+  * [x] 确认带宽抖动无误后，再加上抖动、小概率丢包(是不是也得看下bbr)、dropqueue，跑通
+
+    > drop queue对BBR影响不大，就算了吧
+    >
+    > * [ ] loss还没考虑不加的情况 ，我怕会影响智能体的决策，后续再测一次不加的
+
+  * [ ] 训练（两个机子都训练，另一个修改下网络结构 --》 attention加上 ( 目前两台机子都多加了一维动作\
+
+    * [ ] 还有一个要换一下reward
+
+  * [ ] 抖动频率加大一点，让他过拟合，which makes BBR 来不及反应
+
+* 小带宽，低延迟 --> 调快我的反应速率(5ms) meawhile调快整体链路的变化速度（看看人家是5ms变化一次还是5s变化一次.....233
 
 
 
