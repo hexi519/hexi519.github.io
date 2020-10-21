@@ -1,3 +1,4 @@
+---
 title: gcc链接梳理
 top: false
 cover: false
@@ -9,6 +10,7 @@ description: 动态链接和静态链接
 tags:
 
     - Compilation and Link
+---
 
 # 基础知识
 ## reference

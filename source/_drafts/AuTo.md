@@ -111,3 +111,29 @@ It signals ...
 
 
 
+
+
+# 论文排版心得
+
+图片应该尽量放在colomn的top/bottom，不要放在中间位置，且应该在引用出现之后出现
+
+标点符号后面要空一格
+
+* cite , reference 的小细节
+  * Fig.~\ref  xxx~\cite （前面要加一个波浪线空格
+  * i.e. 和 e.g.后面都要加逗号
+* 作者排版
+  * [基础模板](https://www.cnblogs.com/qq952693358/p/8715697.html)
+  * [同一作者属于不同单位如何排版](http://blog.sina.com.cn/s/blog_5d2054d90101gtms.html)
+  * [IEEE排版的中文翻译](https://wenda.latexstudio.net/data/ueditor/php/upload/file/20190814/1565743586995462.pdf)
+
+* ❓
+  * 哪些地方该cite，哪些地方不该啊
+  * 哪些地方要加空格哪些地方不要啊。。。看起来页太丑了把..
+    * Table~\ref{tab:xx} ?
+    * 数字~单位 ？
+    * \S~\ref{sec"xx} ?
+  * 行内公式还没有好好check
+
+
+
