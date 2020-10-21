@@ -33,25 +33,31 @@ tags:
 
     > 考虑不打折扣的情况--》γ都是1的情况下，就很糟糕。
 
-* 为什么说Sarsa ( on-policy ) 更加保守，而Q-learning ( off-policy ) 更加大胆（鼓励探索）呢？
+* 为什么说Sarsa ( on-policy ) 更加保守，而Q-learning ( off-policy ) 更加大胆且鼓励探索呢？
 
   ![img](https://datawhalechina.github.io/leedeeprl-notes/chapter3/img/3.18.png)
 
+  * **鼓励探索**
+
   可以看到，虽然都是使用ε-greedy算法选择动作，但是对于同一个动作( especially探索出来的动作 )，Q-learning给分会比较高（毕竟是给了一个argmax的action对应的值哇）。那么一旦给分高了以后，偏向选择这个动作的概率就会大，就会探索出更多以这个action开头的trace，其中说不定能找到一个比之前更好的trace。而如果是Sarsa的话，这一次探索之后该动作对应的Q值一跃成为最大值可能性就小很多了。与之相比，Q-learning其实就是鼓励探索的。
+  
+  * **更加大胆**
+  
+  一个很经典的例子就是cliffWalking里面，Q-learning的最终解可以贴着悬崖边上走，但是SARSA是不可以的，这是因为SARSA会考虑到这个贴着悬崖的状态有ε/4的概率会选择向下的动作，然后掉下去( 非最优动作的探索率是 ε/|A|,这里一共有四个动作:上\下\左\右 )，所以这ε/4的低分(死亡)会把这个状态的分数拉下去(而远离悬崖的状态都安全多了，不会有掉下去的概率)；但是Q-learning是只看这个状态会导致的最好结果，which means只看到最后成功的结果，忽视会掉下去的情况，倾向于”铤而走险“。所以个人认为，单纯从找到一个解决方案来看，还是Q-learning比较占优势。
 
   > ```"那么一旦给分高了以后，偏向选择这个动作的概率就会大"```
   >
   >  这里要区分一个概念：对于ε-greedy来说，除了使得值函数的值最大的那个action以外，其他所有的action的选取概率实际上都是一样的。如果想要按照值函数大小为概率来选择动作的话，可以考虑玻尔兹曼策略或者UCB策略。
   >
   > 所以，这句话的隐含意思是，**很大可能**这次更新后( 因为加上的是最大值啊喂 )，这个动作对应的Q-value就一跃成为最大值（之一）了，此时其被选取、探索的概率就会变大。
-
+  
   > **个人认为**，Q-learning这方法会跟UCB做赌博机的那个实验效果一样，倾向于**把所有的动作空间都try一遍**（因为一旦概率落到新动作上，如果学习率比较大，那么这个新动作的Q值一下子就会变得很大，一跃成为Q值最大的，所以下次会优先(大概率)选择它，然后就相当于展开了以它为根结点的探索空间）......
   >
   > 支撑论据：
   >
   > > refer@[知乎](https://www.zhihu.com/question/268461866)，which第一个高票回复我觉得不对，直接在评论里面怼回去了。
   > >
-  > > <img src="C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20201021175117502.png" alt="image-20201021175117502" style="zoom: 80%;" />
+  > > <img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202010/22/011454-204261.png" alt="image-20201021175117502" style="zoom: 80%;" />
   > >
   > > * 可以看到同样的情况下，Q-learning收敛比较慢（因为探索的概率更大哇），但是一旦收敛，就比较稳定了。但是Sarsa就不一样，收敛了以后，由于探索性探索到的动作之前没有好好学习到，所以经常会出现锯齿（which Q-learning已经在前期探索到比较好的策略了）[所以[有人](https://datawhalechina.github.io/leedeeprl-notes/#/chapter3/chapter3)说的“sarsa因为要兼顾探索所以策略不稳定“是这个意思( 并不是说q-learning就没有兼顾探索了hh) ]
   > >
