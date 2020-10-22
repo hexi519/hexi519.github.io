@@ -5,7 +5,7 @@ tags:
 
 # master experience
 
-<img src="C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20201015202754285.png" alt="image-20201015202754285" style="zoom:50%;" />
+<img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202010/15/202802-958772.png" alt="image-20201015202754285" style="zoom:50%;" />
 
 
 
@@ -86,7 +86,7 @@ Inspired by these results, we are motivated to enable DRL for automatic datacent
 
 
 
-## Date ( ICNP'20 )
+## ==Date ( ICNP'20 )==
 
 > 前三段和最后一段绝壁不错，完全是个典范
 
@@ -178,3 +178,4 @@ Deep RL, as one of the leading Machine Learning (ML) techniques, has the potenti
 1. DRL是很前沿的技术，which可以解决复杂问题，并且挖掘隐含的patten ( 这个是RL作为ML的一个子领域的优点，i.e. 只要是ML都有这个优点，which means **也可以套到ML的优势里面去说** )
 2. DRL 泛化性很好（ 同上
 3. 不需要标签，which在真实网络中是难获取的
+

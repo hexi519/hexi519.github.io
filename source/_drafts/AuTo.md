@@ -17,21 +17,21 @@ tackle crucial and timely[这个词觉得不是很合适] challenges
 
 ## 要进一步阐述
 
-* for 解释/(稍微)展开
+* 解释/(稍微)展开
 
-for reference	给一些背景的直观概念
+  for reference	给一些背景的直观概念
 
-for simplicity / in general 	简单概括
+  for simplicity / in general 	简单概括
 
-to be more specific / specifically / in practice  稍微讲洗一点
+  to be more specific / specifically / in practice  稍微讲细一点
 
 ---
 
 * for 补充另一方面
 
-Besides/Apart from/On top of ... 
+  Besides/Apart from/On top of ... 
 
-In addition / Furthermore
+  In addition / Furthermore
 
 
 
@@ -128,12 +128,14 @@ It signals ...
   * [IEEE排版的中文翻译](https://wenda.latexstudio.net/data/ueditor/php/upload/file/20190814/1565743586995462.pdf)
 
 * ❓
+  * networking CC是什么意思...
   * 哪些地方该cite，哪些地方不该啊
   * 哪些地方要加空格哪些地方不要啊。。。看起来页太丑了把..
     * Table~\ref{tab:xx} ?
     * 数字~单位 ？
     * \S~\ref{sec"xx} ?
   * 行内公式还没有好好check
+    * 前后都要加空格
 
 
 
