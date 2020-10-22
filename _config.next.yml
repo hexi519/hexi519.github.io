@@ -74,6 +74,9 @@ index_with_subtitle: true
 exturl: true
 math:
   enable: true 
+  per_page: true
+  mathjax:
+    enable: true
 
 local_search:
   enable: true
@@ -97,7 +100,7 @@ canvas_nest: false
 vendors:
   anime: //js.njzjz.win/npm/animejs@3.1.0/lib/anime.min.js
   fontawesome: //js.njzjz.win/npm/@fortawesome/fontawesome-free@5/css/all.min.css
-  mathjax: https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js
+  mathjax: //js.njzjz.win/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML
   mhchem: //js.njzjz.win/npm/mathjax-mhchem@3
   katex: //js.njzjz.win/npm/katex@0/dist/katex.min.css
   copy_tex_js: //js.njzjz.win/npm/katex@0/dist/contrib/copy-tex.min.js
