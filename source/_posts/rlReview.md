@@ -75,7 +75,7 @@ tags:
 
 * ε-greedy策略是是ε-soft策略中的一种
 
-  如果“严格”的说，ε-greedy策略是$$\frac{ϵ}{A(s)}-soft$$的策略。
+  如果“严格”的说，ε-greedy策略是$\frac{\epsilon}{A(s)}-soft$的策略。
 
   解释请参考[这个博客](http://fancyerii.github.io/books/rl3/)
 
