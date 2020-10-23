@@ -10,7 +10,7 @@ description: Summary
 tags:
     - Reinforcement Learning
 ---
- 
+
 
 
 # 回顾时 一下子没想出来的问题
@@ -75,14 +75,21 @@ tags:
 
 * ε-greedy策略是是ε-soft策略中的一种
 
-  如果“严格”的说，ε-greedy策略是$$\frac{ϵ}{A(s)}-soft$$的策略。
+  如果“严格”的说，ε-greedy策略是$\frac{ϵ}{A(s)}-soft$的策略。
 
   解释请参考[这个博客](http://fancyerii.github.io/books/rl3/)
 
 * 值迭代和策略迭代
 
-  其实MC和TD都是基于值迭代的范式（见《编程实践》书P64），所以SARSA和Q-learning也都是值迭代引出来的，只不过一个是同策略，另一个是异策略（Levine说过PG反而有点像策略迭代
-
+  * 参考[这个笔记](http://wulc.me/2018/05/05/强化学习笔记(1)-概述/)
+  
+    > policy iteration 最后收敛的 value V 是当前 policy 下的 value 值（也做对policy进行评估），目的是为了后面的policy improvement得到新的policy；所以是在**显式地不停迭代 policy**。
+    >
+    > 而value iteration 最后收敛得到的 value 是当前state状态下的最优的value值。当 value 最后收敛，那么最优的policy也就得到的。虽然这个过程中 policy 在也在隐式地更新，但是**一直在显式更新的是 value** 的，所以叫value iteration。
+    >
+    > > 那从这个角度来看，PG似乎应该属于policy gradient 2333,毕竟是直接对策略进行更改 ( PG中是直接输出策略而非值函数了，也就是update参数实际上就是update策略 。DQN的话update 参数其实是在更新值函数，因为其模型输出是值函数233 ） 
+  
+  * SARSA和Q-learning也都是值迭代引出来的，只不过一个是同策略（on-policy），另一个是异策略（off-policy）。至于是TD还是MC，只不过采样方式和训练效率上的差别而已。
 
 
 
