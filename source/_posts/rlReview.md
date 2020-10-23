@@ -75,9 +75,15 @@ tags:
 
 * ε-greedy策略是是ε-soft策略中的一种
 
-  如果“严格”的说，ε-greedy策略是$\frac{\epsilon}{A(s)}-soft$的策略。
+  如果“严格”的说，ε-greedy策略是 $\frac{\epsilon}{A(s)}-soft$ 的策略。
 
   解释请参考[这个博客](http://fancyerii.github.io/books/rl3/)
+
+  进行符号测试： $\frac{\epsilon}{A(s)}-soft$  成果
+
+  进行符号测试： $ \frac{\epsilon}{A(s)}-soft $  成果
+
+  符号 $$ \frac{\epsilon}{A(s)}-soft$$  测试2
 
 * 值迭代和策略迭代
 
