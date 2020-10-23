@@ -75,7 +75,7 @@ tags:
 
 * ε-greedy策略是是ε-soft策略中的一种
 
-  如果“严格”的说，ε-greedy策略是$\frac{ϵ}{A(s)}-soft$的策略。
+  如果“严格”的说，ε-greedy策略是$ \frac{ϵ}{A(s)}-soft $的策略。
 
   解释请参考[这个博客](http://fancyerii.github.io/books/rl3/)
 
@@ -107,3 +107,7 @@ tags:
 * [ ] 编程实战书P21 要结合历史观测 是因为部分可观测性？而不是因为非马尔可夫性？
 
   似乎说得通... 我是因为没有认清当前的状态是什么所以才需要多个state拼在一起的窗口
+
+* [ ] 交叉熵与one-hot之间的联系
+  * [百度飞桨部分给出了一些解释](https://datawhalechina.github.io/leedeeprl-notes/#/chapter4/chapter4)给出了点解释，which我觉得还是没有讲清楚
+  * check下[强化学习纲要](https://github.com/zhoubolei/introRL)对应部分的讲解

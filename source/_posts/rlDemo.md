@@ -54,7 +54,9 @@ sudo /home/hesy/.conda/envs/py36/bin/python main.py --gamma 0.95 --es 0.99 --me 
 
 
 
+# DQN
 
+还没整理好，先占个坑位
 
 
 
