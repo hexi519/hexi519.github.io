@@ -1,13 +1,11 @@
 ---
-
-
 title: rlDemo
 top: false
 cover: false
 toc: true
 mathjax: true
 date: 2020-10-22 01:54:51
-categories: Summary
+categories: Codes
 description: toy play of rl
 tags:
     - Reinforcement Learning
