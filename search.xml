@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Fuzzy Kanerva-based TCP Q-learning</title>
+      <link href="/2020/10/25/PaperReading/Fuzzy%20Kanerva-based%20TCP%20Q-learning/"/>
+      <url>/2020/10/25/PaperReading/Fuzzy%20Kanerva-based%20TCP%20Q-learning/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><ul><li><p>【<strong>Background: important things and urgent need</strong>】 </p><p>Advances in YY technology have resulted in <strong>pervasive deployment</strong> of devices of … . <strong>The need</strong> for <strong>XX</strong> that ….( 描述下对XX的性能期待, e.g. 高吞吐,低延迟 )  <strong>necessitate re-thinking</strong> of conventional design of （你要研究的领域/东西）.</p><blockquote><p>无线技术的进步已导致在尺寸，存储和计算能力方面具有高度可变性的设备的普遍部署(pervasive deployment)。 为了保持以高可靠性传送数据的连续连接，需要重新考虑传统的传输层协议设计。</p></blockquote></li></ul><ul><li><p>【<strong>What we propose and what’s its features</strong>】</p><p><strong>This paper investigates</strong> the use of <strong>ZZ **（你使用的算法/技巧/工具） in **YY</strong>（你研究的领域）… , <strong>wherein</strong> …（描述下你做了什么）. <strong>Furthermore</strong>, it demonstrates how …(具体描述下研究工作中华彩的细节，套路大概就是”我发现了xx(性能瓶颈)在实现的时候很关键，我们是这样解决的”)</p><blockquote><p>本文研究了在拥塞避免状态期间Q学习在TCP cwnd adaptation中的使用，其中窗口的经典alternation已被replaced，从而允许协议立即响应先前看到的网络条件。此外，它展现了内存如何在构建探索空间中发挥关键作用，并提出了通过函数逼近来减少此开销的方法。[ 后面这句话实际上不是一个addtional point，还是在讲这个scheme本身，只不过是scheme的细节，which 是自己的巧思体现之处。] </p></blockquote></li></ul><ul><li><p>【<strong>Performance description</strong>】</p><p><strong>The superior performance</strong> of <u>our</u> approach over <em>Baseline XX</em> is <strong>demonstrated through a comprehensive simulation study</strong>, <strong>revealing</strong> xx% and xx% improvement in <em>metric1</em> and <em>metric2</em> respectively,on real-world(classic) traces/topologies. <strong>We also show</strong> <strong>how</strong> <strong>ZZ **（你使用的算法/技巧/工具） **can be used to</strong> (处理上一段所说的性能瓶颈，while 保持了一个好的performance( 高吞吐/低延迟,这个还是要细点说的) ) .</p><ul><li>这里our换成别个描述characteristic的形容词更好，e.g. learning-based/data-driven</li></ul><blockquote><p>通过全面的仿真研究证明了基于学习的方法优于TCP New Reno的性能，对于评估的拓扑，吞吐量和延迟分别提高了33.8％和12.1％。 我们还展示了如何使用函数逼近来显着降低基于学习的协议的内存需求，同时保持相同的吞吐量和延迟。</p></blockquote></li></ul><h1 id="1-introduction"><a href="#1-introduction" class="headerlink" title="1 introduction"></a>1 introduction</h1><p>快到1页</p><h1 id="2-motivation-and-practical-relevance"><a href="#2-motivation-and-practical-relevance" class="headerlink" title="2 motivation and practical relevance"></a>2 motivation and practical relevance</h1><p>快到1页</p><h1 id="3-related-work"><a href="#3-related-work" class="headerlink" title="3 ==related work=="></a>3 ==related work==</h1><blockquote><p>这一段写的贼好，要好好学习！</p></blockquote><p>一栏</p><ul><li><p>传统CC的问题</p></li><li><p>现在CC的问题</p></li><li><p>其他CC相关的工作</p><blockquote><p>应用机器学习来帮助提高TCP性能的其他工作很少。 例如，[13]使用机器学习来构建损耗分类器，以区分链路损耗和拥塞损耗，[14]和[15]使用机器学习来更好地估计RTT和吞吐量。 这些技术都不能直接调整cwnd。</p></blockquote></li></ul><h1 id="4-Q-learning-based-TCP"><a href="#4-Q-learning-based-TCP" class="headerlink" title="4 Q-learning-based TCP"></a>4 Q-learning-based TCP</h1><blockquote><p>整体</p></blockquote><p>​    我们提出的算法TCPLearning是基于强化学习的协议。 在强化学习中，学习主体在没有先验知识的情况下与环境交互，根据所学习的策略选择动作，获得正面或负面的奖励，然后观察环境的下一个状态。学习代理的目标是制定一种策略，即状态空间到动作空间的映射，以最大化长期打折的奖励。 此后，TCPLearning不再想PCC那样使用probe来检测不同动作对性能的影响，而是使用增强算法Q-Learning来学习最佳策略，以根据经验直接在每个状态下做出动作选择。<br>   TCPLearning发送方使用New Reno协议的正常慢启动阶段。 如果慢启动在cwnd超过阈值时结束，则拥塞控制过程将进入拥塞避免阶段，我们的学习算法将接管控制cwnd。 如果由于观察到拥塞而导致慢速启动结束，则New Reno协议继续，并且不使用学习算法。 如果在拥塞避免阶段检测到数据包丢失，则学习算法将停止，并且将应用New Reno协议来实现快速重传和快速恢复。<br>   <strong>与在New Reno中一样，TCPLearning的最重要任务是调整cwnd的大小。 在每个时间段（通常是一个RTT）中，我们的算法通过处理ACK信息来收集吞吐量和RTT值，然后将它们组合成单个效用函数U。效用函数随着吞吐量的增加和延迟的减少而增加。 该算法的目标是了解cwnd大小的变化如何增加效用函数的值。<br>   学习算法使用Q学习来学习策略以选择动作并实现其目标。Q学习使用简单的值迭代更新过程。 在时间t处，对于每个状态st和at处的每个动作，算法按如下方式计算对其预期折现奖励或动作值函数Q（st，at）的更新：</strong></p><p>​    其中rt + 1是时间t +1的即时奖励，αt（st，at）是折现因子，使得0≤γ&lt;1。Q学习是学习率，使得0≤αt（st，at）≤  1和γ将Q（st，at）值存储在称为Q表的表中。 更新Q（st，at）值的时间复杂度为O（| A |），其中| A | 是动作数。</p><hr><blockquote><p>状态</p></blockquote><p>​    系统的状态由四个状态变量表示，<u>状态变量的值通过离散化划分</u>：</p><p>   •新接收到的ACK之间的间隔时间的移动平均值，离散为10个间隔。<br>   •发送方发送的数据包之间的间隔时间的移动平均值，离散为10个间隔。<br>   •当前的RTT与到目前为止找到的最佳RTT之比，离散为10个间隔。<br>   •缓慢启动阈值，离散为10个间隔。</p><hr><blockquote><p>动作</p></blockquote><p><img src="https://images.weserv.nl/?url=https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202010/25/210337-366485.png" alt="image-20201025210336629"></p><p>​    表II总结了更改cwnd的可用操作。 </p><p>​    奖励函数基于效用值的变化：</p><p>​                U = loge（吞吐量）-δ×loge（延迟）吞吐量</p><p>​    其中δ表示延迟相对于效用函数的相对重要性。 在我们的实验中，δ设置为1。</p><p>​    奖励函数等于：</p><pre><code>* +2，如果效用在时间段t之后增加* -2，如果效用在时间段t之后减少。  </code></pre><p>​    其中t设置为0.1s（在我们的实验中为一个RTT）</p><h1 id="5-FUZZY-KANERVA-BASED-TCP-Q-LEARNING"><a href="#5-FUZZY-KANERVA-BASED-TCP-Q-LEARNING" class="headerlink" title="5 .FUZZY KANERVA-BASED TCP Q-LEARNING"></a>5 .FUZZY KANERVA-BASED TCP Q-LEARNING</h1><blockquote><p>先讲总体的思路，再讲细节的设计</p></blockquote><blockquote><p>==对应于我就是先讲总体的流程，然后再讲 1. lstm的设计  2. attention的设计==</p></blockquote><ul><li><p>function approximator的重要性</p><ul><li><p>现有的一些方法，以及他们存在的一些问题</p></li><li><p>我们使用的Kanerva编码的原理和formulation，以及如何融入我们这个框架里面的</p><blockquote><p>请注意，这里阐述细节并不是为了讲算法原理，而是要讲清楚如何讲算法应用到我们这里面来的</p></blockquote></li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> PaperReading </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Network </tag>
+            
+            <tag> Reinforcement Learning </tag>
+            
+            <tag> Congestion Control </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>spinningUpCodesReading</title>
       <link href="/2020/10/24/Codes/spinningUpCodesReading/"/>
       <url>/2020/10/24/Codes/spinningUpCodesReading/</url>
@@ -84,35 +113,6 @@
         <tags>
             
             <tag> Reinforcement Learning </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>DRL-TE</title>
-      <link href="/2020/10/19/PaperReading/DRL-TE/"/>
-      <url>/2020/10/19/PaperReading/DRL-TE/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="hesy-summary"><a href="#hesy-summary" class="headerlink" title="hesy summary"></a>hesy summary</h1><ul><li>排队论不适合多跳排队问题的建模<ul><li>强假设不能满足</li><li>多跳排队还是个open problem</li></ul></li></ul><h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>​    现代通信网络已经变得非常复杂且高度动态，这使其难以建模，预测和控制。 在本文中，我们开发了一种新颖的体验驱动方法，可以像人类学习新技能（例如驾驶，游泳等）一样，根据自身的经验而不是准确的数学模型来学习很好地控制通信网络。 具体来说，我们首次建议利用新兴的深度强化学习（DRL）在通信网络中实现无模型控制； 并针对基础网络问题：流量工程（TE），提出了一种新颖且高效的基于DRL的控制框架DRL-TE。通过共同学习网络环境及其动态性，并在强大的深度神经网络（DNN）的指导下进行决策，<strong>所提出的框架最大程度地提高了广泛使用的效用函数</strong>。<strong>我们提出了两种新技术</strong>，即TE感知探索和基于行为者批评的优先体验重播，以优化通用DRL框架，尤其是针对TE的框架。 为了验证和评估所提出的框架，我们在<strong>ns-3</strong>中实施了该框架，<strong>并使用代表性和随机生成的网络拓扑进行了全面测试</strong>。 广泛的数据包级仿真结果表明：1）与几种广泛使用的基准方法相比，DRL-TE显着<u>降低了端到端延迟</u>，并不断提高了网络实用性，<u>同时提供了更好或相当的吞吐量</u>；  2）DRL-TE对网络的变化更具有鲁棒性； 和3）DRL-TE始终优于最新的DRL方法（用于连续控制），即深度确定性策略梯度（DDPG），但是它不能提供令人满意的性能。</p><h1 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h1><p>​    已经进行了广泛的研究努力来开发用于通信网络的算法和协议，以有效地利用它们的资源。 传统的网络资源分配方法大多是基于模型的，它们假定可以很好地建模网络环境和用户需求。 然而，通信网络变得更加复杂且高度动态，这使其难以建模，预测和控制。 因此，我们的目标是开发一种新颖的，无需经验的无模型方法，该方法可以像人类学习技能（例如驾驶，游泳等）一样，从经验中学习很好地控制通信网络，而不是精确的数学模型。我们认为，某些新兴的联网技术，例如软件定义网络（SDN）[18]，可以很好地支持这种体验/数据驱动的方法。 例如，SDN中的<strong>Openflow</strong>控制器可以用作中央控制单元，用于收集数据，制定决策和部署解决方案。</p><p>​    一个基本的网络问题是流量工程（TE）：给定一组具有源节点和目标节点的网络流，请找到一种解决方案，以最大化实用功能为目标转发数据流量。 简单且广泛使用的解决方案包括：始终通过最短路径路由流量（例如，开放式最短路径优先（OSPF）[24]）； 或通过多个可用路径平均分配流量（例如，有效负载平衡<strong>（VLB）[38]**）。 显然，它们都不是最优的。 如果存在针对网络环境，用户需求及其动态的准确且数学可解的模型，则可以开发出更好的解决方案。 <u>排队论已被用于对通信网络进行建模并协助资源分配[15]，[25]，[26]，[37]</u>。 **但是，由于以下原因，它可能不适用于涉及多跳路由和端到端性能（例如延迟）的网络问题</strong>：1）在排队论中，queueing network（而不是单个队列）中的许多问题仍然是开放问题，而具有网状拓扑结构的通信网络则表示相当复杂的多点到多点排队网络，其中来自一个队列可以被分布到多个下游队列，并且一个队列可以从多个不同的上游队列接收分组。  2）<u>排队理论只能在一些强假设下（例如，元组到达遵循泊松分布等）提供准确的排队延迟估计，但是在复杂的通信网络中可能不成立</u>。 请注意，即使到达每个源节点的数据包都遵循泊松分布，到达中间节点的数据包也可能不会。</p><h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><h3 id="abstract-1"><a href="#abstract-1" class="headerlink" title="abstract"></a>abstract</h3><ul><li>ns3的话 拓扑规模？</li><li>DRL-TE怎么和DDPG对比起来了，不是两种不同的东西么…</li><li>VLB和ECMP的区别</li></ul><ul><li>我们一定要做分布式的么？不做的话会怎么样–》无法达到全局最优 ?  Auto怎么被评论的？</li><li>有哪些open review的会议</li><li>Caida数据集</li><li>ospf最短路径的权重问题？</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> PaperReading </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Network </tag>
-            
-            <tag> Reinforcement Learning </tag>
-            
-            <tag> Routing </tag>
             
         </tags>
       
