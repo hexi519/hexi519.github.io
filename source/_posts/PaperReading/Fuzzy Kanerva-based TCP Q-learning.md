@@ -11,8 +11,6 @@ tags:
 
 
 
-
-
 # abstract
 
 * 【**Background: important things and urgent need**】 
@@ -44,6 +42,10 @@ tags:
 # 1 introduction
 
 快到1页
+
+==这里的表达不应该是“以往的工作有xx缺点，为改进此缺点我们提出...”，而应该是“以往的工作有xx缺点。我们提出了基于xx技术的XX。它的表现...and... ”==
+
+
 
 # 2 motivation and practical relevance
 
@@ -105,24 +107,103 @@ tags:
 
 ​	奖励函数等于：
 
-	* +2，如果效用在时间段t之后增加
-	* -2，如果效用在时间段t之后减少。  
+* +2，如果效用在时间段t之后增加
+* -2，如果效用在时间段t之后减少。    
 
 ​	其中t设置为0.1s（在我们的实验中为一个RTT）
 
 
 
-# 5 .FUZZY KANERVA-BASED TCP Q-LEARNING
+# 5  FUZZY KANERVA-BASED TCP Q-LEARNING
 
 > 先讲总体的思路，再讲细节的设计
 
-> ==对应于我就是先讲总体的流程，然后再讲 1. lstm的设计  2. attention的设计==
+> ==对应于我就是先讲总体的流程，然后再讲 1. lstm的设计  2. attention的设计（不仅能提高观察，还能提高性能 !  理由，在平缓的时候关注点能平坦,,, 在剧烈变化的时候关注点能聚焦... --> 需要做个对比试验，此外，关于理由还是要再想清楚点.. ）==
 
 * function approximator的重要性
 
   * 现有的一些方法，以及他们存在的一些问题
 
-  * 我们使用的Kanerva编码的原理和formulation，以及如何融入我们这个框架里面的
+  * 我们使用的Kanerva编码的原理和formulation，以及如何融入我们这个框架里面的 【创新和修改部分】
 
     > 请注意，这里阐述细节并不是为了讲算法原理，而是要讲清楚如何讲算法应用到我们这里面来的
+  
+  * 给出伪代码
+  * 描述伪代码的流程 ( lines xx-xx ) ，这里还分析了下代码的时空复杂度
+
+
+
+# 6 Performance Evaluation
+
+* 实验设置
+  * 评估了三个方法，baseline是New Reno
+  * 单源拓扑上测试了性能，哑铃状拓扑测试了公平性，每个算跑8次
+  * 链路设置：RTT为100ms；每800s在7.5Mbps和2.5Mbps之间切换；缓冲区大小为BDP，which is 50个数据包
+  * 每个算法
+
+> 我们使用基于ns-3的数据包级仿真，通过与TCP New Reno进行比较，来评估在不同带宽条件下TCPLearning，CMAC和Fuzzy TCPLearning的性能。 我们从图1（a）所示的单瓶颈网络开始，然后将评估范围扩展到图1（b）所示的更复杂的多流网络，以进行与公平相关的研究。 我们使用这些拓扑来演示受控环境中学习的特征，并显示对吞吐量和延迟的影响。 瓶颈带宽（在路由器-接收器链路上）每800s交替在7.5Mbps和2.5Mbps之间切换。 网络RTT设置为100ms，缓冲区大小设置为BDP，在我们的仿真中为50个数据包。 我们使用每种算法进行8个实验，并报告平均吞吐量和延迟。 值的标准偏差使用误差线显示。
+>    一种。
+
+> We use ns-3 based packet level simulations to evaluate the performance of TCPLearning, CMAC and Fuzzy TCPLearning in varying bandwidth conditions by comparing with TCP New Reno. We begin with a single-bottleneck network shown in Fig. 1(a) and later extend the evaluation to a more complex multi-flow network shown in Fig. 1(b) for fairness-related studies. We use these topologies to demonstrate the characteristic features of learning in controlled environments and show the impact on throughput and delay. The bottleneck bandwidth (on the router-receiver link) switches alternately between 7.5Mbps and 2.5Mbps every 800s. The network RTT is set to 100ms and the buffer size is set to BDP, which is 50 packets in our simulation. We conduct 8 experiments using each algorithm and report the average throughput and delay. The standard deviation of values is shown using error bars.
+
+
+
+## A. TCPLearning without Function Approximation
+
+在这种情况下，我们禁用函数逼近并设置探索率？ 对于TCPLearning到0.1。 初始学习率α设置为0.3，并且每隔10s降低0.995倍。 总仿真时间设置为<u>6400s</u>。
+
+---
+
+* 平均吞吐量和延迟： 【是一个总体的视图】
+
+  * **陈述了**不同带宽情况下，算法和baseline之间的吞吐量情况差距
+
+  	> ​	**图2（a）**比较了TCP New Reno和TCPLearning在瓶颈带宽每800s介于7.5Mbps和2.5Mbps之间切换时获得的**平均吞吐量**。 结果表明，随着瓶颈带宽的波动，TCPLearning的性能明显优于TCP New Reno。 我们观察到，在7.5Mbps的瓶颈带宽下，TCPLearning的平均吞吐量为6.72Mbps，而TCP New Reno的平均吞吐量为4.46Mbps。 在瓶颈带宽为2.5Mbps的情况下，TCPLearning的平均吞吐量为2.27Mbps，而TCP New Reno的平均吞吐量为2.26Mbps。 我们注意到，由于默认缓冲区大小在100ms的网络RTT和2.5Mbps的瓶颈带宽下是最佳的，因此TCP New Reno充分利用了该缓冲区，并且TCPLearning获得了同样好的性能。
+  	>
+  	> ​	**图2（b）**比较了在相同网络设置下TCP New Reno和TCPLearning实现的**平均RTT**。 结果表明，在瓶颈带宽为7.5Mbps时，TCPLearning的平均RTT为111ms，而TCP New Reno的平均RTT为109ms。 在瓶颈带宽为2.5Mbps时，TCPLearning的平均RTT为114ms，而TCP New Reno的平均RTT为154ms。 在任何瓶颈带宽下，TCPLearning在平均吞吐量方面都优于TCP New Reno。 图2（a）表明，在这种高带宽波动的网络中，TCPLearning将平均吞吐量提高了33.8％。 当考虑图2（b）所示的延迟时，尽管TCPLearning的性能稍差一些，但在这种情况下，在2.5Mbps的瓶颈带宽下性能下降了1.8％，在7.5Mbps的瓶颈带宽下，其性能优于TCP New Reno 26％。 平均而言，TCPLearning可将延迟减少12.1％。
+
+  * 开始**分析解释**为啥人家会差【我觉得这一段批评classic的，我可以学习下】，我们会好
+
+    请注意，**要用图片来佐证你的分析**
+
+  	> ​    我们观察到，TCP New Reno的平均吞吐量为4.46Mbps，远小于瓶颈带宽7.5Mbps。 这是因为TCP New Reno的预定义的拥塞避免算法使cwnd超出了连接所能支持的范围，最终使网络拥塞，最终导致cwnd和吞吐量显着下降。 <u>更糟糕的是，由于TCP New Reno算法无法存储过去的操作以及这些操作对性能的影响，因此它会重复相同的行为。 图3显示了在模拟TCP New Reno期间cwnd的大小与时间的关系。 该图表明，该算法反复做出相同的错误决策，从而降低了性能。</u>
+  	>    另外，TCP new Reno在cwnd每次<u>显着下降之后需要花费大量时间来恢复</u>，因为它必须在避免拥塞阶段线性增加cwnd。 但是，TCPLearning通过学习经验来克服了这一缺陷。 图3还显示了在TCPLearning仿真期间，cwnd的大小与时间的关系。 该图显示，随着学习过程的进行，TCPLearning进行了各种实验，这些实验会修改cwnd直到110s。  110s之后，学习到的动作值函数Q（s，a）收敛到最佳动作值函数Q ∗（s，a）。这时，TCPLearning找到一个最佳动作，该动作充分利用了缓冲区并且不会触发任何动作 数据包丢失。 这种习得的动作使cwnd足够大，可以达到良好的性能，但是比发生包丢失的上限稍小。 通过这种最佳操作获得的高吞吐量将保持稳定，直到800s之后，瓶颈带宽才会切换。
+
+---
+
+> 讲完整体视图/情况  以及 为什么会这样 之后，开始讲实时的指标 ( 细化 )
+
+
+* 实时吞吐量 【还是踩了别人一脚，分析也比较少了
+
+	> ​	图4显示了TCP New Reno和TCPLearning的实时吞吐量，其中每800s的高带宽在7.5Mbps和2.5Mbps之间切换。 该图显示，当瓶颈带宽为7.5Mbps（在最初的800秒钟内）时，TCP New Reno会经历重复的数据包丢失，从而导致平均吞吐量较低且不稳定。 当瓶颈带宽切换到一个较小的值（800s后为2.5Mbps）时，TCP New Reno会充分利用缓冲区并获得高而稳定的吞吐量。 我们观察到，在使用TCP New Reno时，那些具有高瓶颈带宽的方案会有效并严重降低吞吐量。 但是，波动的瓶颈带宽对TCPLearning实现的吞吐量影响很小。 如图4所示，TCPLearning用110s来学习7.5Mbps瓶颈带宽时的最佳策略，并保持高而稳定的吞吐量，直到800s。 当瓶颈带宽在800s之后切换到2.5Mbps时，TCPLearning会非常迅速地收敛，并且仍然可以实现稳定的吞吐量，直到瓶颈带宽再次切换为止。
+
+* 实时RTT 【
+
+  > 图5显示了在上述相同带宽切换情况下TCP New Reno和TCPLeaning的实时RTT。 我们发现，在瓶颈带宽波动的情况下，TCPLearning比TCP New Reno实现了更稳定和更低的RTT。
+
+
+
+## B. TCPLearning with Function Approximation We
+
+> 我们通过将CMAC算法和Fuzzy TCPLearning算法应用于图1（a）所示的相同网络拓扑来评估其性能。  CMAC算法将状态动作空间划分为一组不同的图块，并创建多个图块以在学习中提供粗粒度和细粒度的概括。 在我们的实验中，我们使用5个切片，每个切片有3,125个切片，因为我们有5个可能的操作和4个状态变量，每个变量均等地划分为5个间隔。 要学习动作值，我们需要存储15625个θ值，这些值等于每个平铺3125个图块乘以5个平铺。 由于每个平铺都有大的平铺，因此需要较少的内存来存储所有θ值。  Fuzzy TCPLearning算法将函数逼近与连续的隶属度等级结合使用，以控制并显着减少存储学习值（对于TCPLearning而言是Q表）所需的内存量，同时保持性能。
+>    为了进行实验，我们首先随机生成一组100个原型，然后初始化相应的θ值。 然后，使用等式2通过Q学习过程更新每个原型的θi值。
+
+* **平均吞吐量和延迟**
+
+  > 图2还比较了CMAC和Fuzzy TCPLearning在两个交替的瓶颈带宽下获得的平均吞吐量和延迟。我们观察到，在两个不同的瓶颈带宽上，CMAC和Fuzzy TCPLearning在吞吐量和延迟方面都优于TCP New Reno。我们注意到，当瓶颈带宽为7.5Mbps时，与TCPLearning相比，CMAC和Fuzzy TCPLearning的吞吐量都有轻微下降。 当瓶颈带宽为2.5Mbps时，可以观察到几乎相同的吞吐量。 此外，就两个瓶颈带宽的延迟而言，CMAC和Fuzzy TCPLearning的性能均比New Reno更好，而性能比TCPLearning差。 我们得出结论，就吞吐量和延迟而言，平均而言，TCPLearning表现最佳。 但是，利用功能逼近技术，CMAC和模糊TCPLearning可以显着减少内存使用，同时实现可比的性能。
+  > 
+
+* **减少内存使用的影响**
+
+  > TCPLearning算法分配内存以存储可能遇到的50,000个状态操作对中的每对。 由于4个字节用于存储与一个状态操作对相对应的Q值，因此TCPLearning使用200KB的内存存储。 相反，CMAC算法仅需要存储θ值，该值可能远小于状态动作对的数量。 我们的实验中使用的θ值总数为15,625，最终的内存使用量为62.5KB，不到TCPLearning使用的内存的1/3。 模糊TCPLearning算法为100个状态-动作对分配存储。 由于需要20个字节来存储一个状态-动作对，另外400个字节用于存储100个原型的θ值，因此它仅使用2.4KB内存，因此非常适合物联网应用。
+
+
+
+
+## C. Fairness Observations We
+
+我们通过评估图1（b）所示的哑铃网络拓扑中的性能来评估TCPLearning算法的公平性。 该拓扑包括<u>2个发送器和2个接收器，它们在100ms RTT时共享2.5Mbps的瓶颈带宽。 瓶颈路由器缓冲区大小设置为100个数据包</u>。 两个流中的数据传输同时开始。 表III显示了TCP New Reno和TCPLearning的两个竞争流的平均吞吐量。 我们观察到，使用TCP New Reno和TCPLearning两种流的平均吞吐量几乎相同，因此在the那教的公平性指数中得分均相等。
+
+
 
