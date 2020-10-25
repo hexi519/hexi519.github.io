@@ -134,6 +134,8 @@ It signals ...
     * Table~\ref{tab:xx} ?
     * 数字~单位 ？
     * \S~\ref{sec"xx} ?
+  * re-thinking , sub-component是不是这种自己拼起来的词都是要加连字符哇？那ultra-low为啥你没有加连字符，是因为这个词已经很常用了么
+  * key-word的选择应该还比较随意 ? 
   * 行内公式还没有好好check
     * 前后都要加空格
 
