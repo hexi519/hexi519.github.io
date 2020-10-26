@@ -139,6 +139,7 @@ It signals ...
   * 行内公式还没有好好check
     * 前后都要加空格
   * Transactions on Network Science and Engineering (TNSE) 这个刊你见过没哇...CCF等级没见到过，但看起来应该还不错？
+  * 可以引用别人的文章，whose文章里面批评了再前人的工作吗？
 
 
 
