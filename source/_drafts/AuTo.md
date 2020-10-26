@@ -35,6 +35,16 @@ tackle crucial and timely[这个词觉得不是很合适] challenges
 
 
 
+# introduction
+
+* mater experience
+
+<img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202010/15/202802-958772.png" alt="image-20201015202754285" style="zoom:50%;" />
+
+
+
+
+
 # Design
 
 Our insight is to...  先给出design的rationale
@@ -69,8 +79,6 @@ We proceed to do sth.   我们接着...
 
 
 
-
-
 # Evaluation
 
 We seek to understand:(1).. (2)  	用于评价段开头，引出我们做这些实验的目的
@@ -99,15 +107,34 @@ It signals ...
 
 ## Intro里面常用
 
-* RL的流程 & RL的成功性
+* **RL的流程 (短版本) & RL的prevalance**（from auto
 
   In this paper, we investigate reinforcement learning (RL) techniques [55], as RL is the subfield of machine learning concerned with decision making and action control. It studies how an agent can learn to achieve goals in a complex, uncertain environment. An RL agent observes previous environment states and rewards, then decides an action in order to maximize the reward. RL has achieved good results in many difficult environments in recent years with advances in deep neural networks (DNN): DeepMind’s Atari results [40] and AlphaGo [52] used deep RL (DRL) algorithms which make few assumptions about their environments, and thus can be generalized in other settings. 
 
-  
 
-* 我们采用DRL以及增量训练的方式
+
+
+* **RL的流程 (长版本)**
+
+  Deep RL is a combination of RL and deep neural network (DNN) and is more powerful to tackle complex tasks than RL. Different from supervised learning techniques with external knowledge guidance, a Deep RL agent learns its behavior through interactions with an environment iteratively for a specific objective. [这里我觉得应该补充下step的概念] At each iteration step, the agent observes the current state of the environment and makes a decision, i.e., an action. Then, the environment evolves transforms from the current state to a new state and returns a reward value to the agent. The reward is a feedback value indicating the quality of the agent’s action. The goal of the agent is to learn a policy which is a DNN mapping state to action so as to maximize the discounted cumulative reward [25]. To find a satisfactory policy, Deep RL takes an exploration-exploitation-based method. The agent can take a large-reward action learned so far, which is called action exploitation. The agent can also try a new action for a possibly higher reward, which is called action exploration. A good tradeoff between exploitation and exploration helps the agent “understand” the environment well and learn an optimized policy through enough iterations. 
+
+
+
+* **我们采用DRL以及增量训练的方式**
 
   We adopt an advanced Deep Reinforcement Learning ( DRL ) algorithm and leverage incremental training to make agents able to accommodate highly heterogeneous traffic patterns and even link failures. 
+
+
+
+* **DRL的优势**
+
+	> from DATE(ICNP'20) introduction
+
+	Deep RL, as one of the leading Machine Learning (ML) techniques, has the potential of solving complex and dynamic control problems. Deep RL algorithms can automatically exploit hidden patterns in training data and continue improving its TE strategy over time. Well-trained Deep RL models can do inference efficiently even for the inputs that never appeared before. **Besides**, Deep RL models can be trained by interacting with the network environment without requiring labeled data that are usually hard to obtain in real networks [15]. Several recent proposals [15]–[17] have capitalized on these advancements to tackle the crucial and timely challenge of TE. However, We hasten to emphasize that these RL-based approaches only focus on intra-region TE problems within a single, fully-controlled region (regarded as a single agent) and thus cannot be applied to the distributed TE problem in multi-region networks.
+
+    1. DRL是很前沿的技术，which可以解决复杂问题，并且挖掘隐含的patten ( 这个是RL作为ML的一个子领域的优点，i.e. 只要是ML都有这个优点，which means **也可以套到ML的优势里面去说** )
+    2. DRL 泛化性很好（ 同上
+    3. 不需要标签，which在真实网络中是难获取的
 
 
 
@@ -134,12 +161,16 @@ It signals ...
     * Table~\ref{tab:xx} ?
     * 数字~单位 ？
     * \S~\ref{sec"xx} ?
-  * re-thinking , sub-component是不是这种自己拼起来的词都是要加连字符哇？那ultra-low为啥你没有加连字符，是因为这个词已经很常用了么
-  * key-word的选择应该还比较随意 ? 
   * 行内公式还没有好好check
     * 前后都要加空格
   * Transactions on Network Science and Engineering (TNSE) 这个刊你见过没哇...CCF等级没见到过，但看起来应该还不错？
   * 可以引用别人的文章，whose文章里面批评了再前人的工作吗？
+  * 也可以问问cy：ICC的投稿格式还要再看下
+    * key-word的选择应该还比较随意 ? 
+    * 关键字个数，以及要不要大写
 
 
 
+* abstract + intro 1.5页
+* formulation 2页
+* performance 1.5页 （我这里就整两页把

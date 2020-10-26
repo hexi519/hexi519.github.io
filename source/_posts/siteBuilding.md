@@ -31,9 +31,6 @@ description: github pages建站
 [py37下字符编码遇到的问题](https://blog.csdn.net/stone9159/article/details/79071316)
 
 
-
-
-
 ---
 # hexo
 > 我的两个config.xml（_config.next.xml是对应next主题的配置）都做了比较详细的注释，大家改起来也会很方便，欢迎在我的基础上修改！（虽然我本来也就是改学神的 :)

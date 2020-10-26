@@ -35,10 +35,7 @@ DCOSS'16
     * pre-configured
     * re-think
 
-
 <!-- more -->
-
-
 
 # abstract
 
