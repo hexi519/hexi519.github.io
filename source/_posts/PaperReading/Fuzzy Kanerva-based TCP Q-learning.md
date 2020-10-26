@@ -2,7 +2,6 @@
 title: Fuzzy Kanerva-based TCP Q-learning
 date: 2020-10-25 16:13:55
 categories: PaperReading
-description: DCOSS'16 主要梳理下行文思路，用于写作学习。abstraction,design,performance都很出彩
 tags:
     - Network
     - Reinforcement Learning
@@ -12,6 +11,10 @@ tags:
 
 
 # Hesy summary 
+
+DCOSS'16 
+
+主要用于梳理下行文思路，用于写作学习。abstraction,design,performance都很出彩
 
 * abstract的三段论值得学习
 * related work里面的抨击值得摘抄！
