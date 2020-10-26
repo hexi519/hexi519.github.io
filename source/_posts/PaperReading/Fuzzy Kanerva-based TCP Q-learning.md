@@ -2,12 +2,23 @@
 title: Fuzzy Kanerva-based TCP Q-learning
 date: 2020-10-25 16:13:55
 categories: PaperReading
-description: DCOSS'16 主要梳理下行文思路，用于写作学习
+description: DCOSS'16 主要梳理下行文思路，用于写作学习。abstraction,design,performance都很出彩
 tags:
     - Network
     - Reinforcement Learning
     - Congestion Control
 ---
+
+
+
+# Hesy summary 
+
+* abstract的三段论值得学习
+* related work里面的抨击值得摘抄！
+* design的逻辑很好！
+* performance的逻辑和布局也学习到了！
+
+<!-- more -->
 
 
 
@@ -201,9 +212,9 @@ tags:
 
 
 
-## C. Fairness Observations We
+## C. Fairness Observations
 
-我们通过评估图1（b）所示的哑铃网络拓扑中的性能来评估TCPLearning算法的公平性。 该拓扑包括<u>2个发送器和2个接收器，它们在100ms RTT时共享2.5Mbps的瓶颈带宽。 瓶颈路由器缓冲区大小设置为100个数据包</u>。 两个流中的数据传输同时开始。 表III显示了TCP New Reno和TCPLearning的两个竞争流的平均吞吐量。 我们观察到，使用TCP New Reno和TCPLearning两种流的平均吞吐量几乎相同，因此在the那教的公平性指数中得分均相等。
+​	我们通过评估图1（b）所示的哑铃网络拓扑中的性能来评估TCPLearning算法的公平性。 该拓扑包括<u>2个发送器和2个接收器，它们在100ms RTT时共享2.5Mbps的瓶颈带宽。 瓶颈路由器缓冲区大小设置为100个数据包</u>。 两个流中的数据传输同时开始。 表III显示了TCP New Reno和TCPLearning的两个竞争流的平均吞吐量。 我们观察到，使用TCP New Reno和TCPLearning两种流的平均吞吐量几乎相同，因此在the那教的公平性指数中得分均相等。
 
 
 

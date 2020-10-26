@@ -138,6 +138,7 @@ It signals ...
   * key-word的选择应该还比较随意 ? 
   * 行内公式还没有好好check
     * 前后都要加空格
+  * Transactions on Network Science and Engineering (TNSE) 这个刊你见过没哇...CCF等级没见到过，但看起来应该还不错？
 
 
 
