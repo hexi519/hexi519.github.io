@@ -1,5 +1,4 @@
 ---
-layout:     post
 title: DeePCCI(SIGCOMM'19)
 date:       2020-02-05 12:00:00
 author:     "hesy"

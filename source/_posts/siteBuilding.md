@@ -1,6 +1,7 @@
 ---
 title: 建站 | Jekyll -》 mkdocs -》 hexo
 top: true
+cover: true
 toc: true
 mathjax: true
 date: 2020-07-30 21:50:53

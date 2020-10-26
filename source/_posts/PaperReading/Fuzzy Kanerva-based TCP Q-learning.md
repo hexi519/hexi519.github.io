@@ -1,14 +1,15 @@
 ---
 title: Fuzzy Kanerva-based TCP Q-learning
+top: false
+cover: false
 date: 2020-10-25 16:13:55
+password: 96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e
 categories: PaperReading
 tags:
     - Network
     - Reinforcement Learning
     - Congestion Control
 ---
-
-
 
 # Hesy summary 
 
@@ -23,7 +24,7 @@ DCOSS'16
   * 整体的运行架构是什么 （ 如何将Q-learning算法结合我们的场景进行运行
   * RL的几个要素分别是什么 （ 如何结合Q-learning算法和我们的问题进行芥末
   * 实现上遇到的challenge 以及我们的解决方案 , which is another 华彩
-* [performance]()(#6 Performance Evaluation)的逻辑和布局也学习到了！
+* [performance](#Performance)的逻辑和布局也学习到了！
   * 实验设置
   * 整体在xx 和 yy 方面的提升 &  为何会出现这样情况的分析
   * 在xx方面的结果 翔实的展示； 在yy方面的结果 翔实的展示
@@ -33,7 +34,6 @@ DCOSS'16
     * sub-component
     * pre-configured
     * re-think
-
 
 
 <!-- more -->
@@ -162,7 +162,7 @@ DCOSS'16
 
 
 
-# 6 Performance Evaluation
+# 6 Performance Evaluation <h2 id="Performance"></h2>
 
 * 实验设置
   * 评估了三个方法，baseline是New Reno

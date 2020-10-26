@@ -1,11 +1,11 @@
 ---
-title: {{ title }}
 date: {{ date }}
 top: false
 cover: false
-toc: true
-mathjax:     true
+mathjax: true
+
 categories:
 description:
+title: {{ title }}
 tags:
 ---
