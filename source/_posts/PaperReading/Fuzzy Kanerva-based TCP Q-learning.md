@@ -16,10 +16,25 @@ DCOSS'16
 
 主要用于梳理下行文思路，用于写作学习。abstraction,design,performance都很出彩
 
-* abstract的三段论值得学习
+* [abstract](#abstract)的三段论值得学习
+* introduction的逻辑应该是 ```我们提出了XXXX，能克服前人工作的xx缺点``` 而不是```前人工作有xx缺点，为此我们提出了XXXX```
 * related work里面的抨击值得摘抄！
 * design的逻辑很好！
-* performance的逻辑和布局也学习到了！
+  * 整体的运行架构是什么 （ 如何将Q-learning算法结合我们的场景进行运行
+  * RL的几个要素分别是什么 （ 如何结合Q-learning算法和我们的问题进行芥末
+  * 实现上遇到的challenge 以及我们的解决方案 , which is another 华彩
+* [performance]()(#6 Performance Evaluation)的逻辑和布局也学习到了！
+  * 实验设置
+  * 整体在xx 和 yy 方面的提升 &  为何会出现这样情况的分析
+  * 在xx方面的结果 翔实的展示； 在yy方面的结果 翔实的展示
+
+* 小细节
+  * 自己拼接造出的单词 ，dash别忘了
+    * sub-component
+    * pre-configured
+    * re-think
+
+
 
 <!-- more -->
 
@@ -153,7 +168,7 @@ DCOSS'16
   * 评估了三个方法，baseline是New Reno
   * 单源拓扑上测试了性能，哑铃状拓扑测试了公平性，每个算跑8次
   * 链路设置：RTT为100ms；每800s在7.5Mbps和2.5Mbps之间切换；缓冲区大小为BDP，which is 50个数据包
-  * 每个算法
+  * 每个算法跑了8次
 
 > 我们使用基于ns-3的数据包级仿真，通过与TCP New Reno进行比较，来评估在不同带宽条件下TCPLearning，CMAC和Fuzzy TCPLearning的性能。 我们从图1（a）所示的单瓶颈网络开始，然后将评估范围扩展到图1（b）所示的更复杂的多流网络，以进行与公平相关的研究。 我们使用这些拓扑来演示受控环境中学习的特征，并显示对吞吐量和延迟的影响。 瓶颈带宽（在路由器-接收器链路上）每800s交替在7.5Mbps和2.5Mbps之间切换。 网络RTT设置为100ms，缓冲区大小设置为BDP，在我们的仿真中为50个数据包。 我们使用每种算法进行8个实验，并报告平均吞吐量和延迟。 值的标准偏差使用误差线显示。
 >    一种。
