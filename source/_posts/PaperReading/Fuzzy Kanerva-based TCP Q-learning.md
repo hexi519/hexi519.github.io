@@ -49,7 +49,7 @@ DCOSS'16
 
 * 【**What we propose and what's its features**】
 
-  **This paper investigates** the use of **ZZ **（你使用的算法/技巧/工具） in **YY**（你研究的领域）... , **wherein** ...（描述下你做了什么）. **Furthermore**, it demonstrates how ...(具体描述下研究工作中华彩的细节，套路大概就是"我发现了xx(性能瓶颈)在实现的时候很关键，我们是这样解决的")
+  **This paper investigates** the use of  **ZZ ** （你使用的算法/技巧/工具） in **YY**（你研究的领域）... , **wherein** ...（描述下你做了什么）. **Furthermore**, it demonstrates how ...(具体描述下研究工作中华彩的细节，套路大概就是"我发现了xx(性能瓶颈)在实现的时候很关键，我们是这样解决的")
 
   > 本文研究了在拥塞避免状态期间Q学习在TCP cwnd adaptation中的使用，其中窗口的经典alternation已被replaced，从而允许协议立即响应先前看到的网络条件。此外，它展现了内存如何在构建探索空间中发挥关键作用，并提出了通过函数逼近来减少此开销的方法。[ 后面这句话实际上不是一个addtional point，还是在讲这个scheme本身，只不过是scheme的细节，which 是自己的巧思体现之处。] 
 
@@ -174,7 +174,7 @@ DCOSS'16
 
 
 
-## A. TCPLearning without Function Approximation
+## A. TCP-Learning without Function Approximation
 
 在这种情况下，我们禁用函数逼近并设置探索率？ 对于TCPLearning到0.1。 初始学习率α设置为0.3，并且每隔10s降低0.995倍。 总仿真时间设置为<u>6400s</u>。
 

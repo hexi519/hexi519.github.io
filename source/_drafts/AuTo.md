@@ -146,6 +146,7 @@ It signals ...
 
 标点符号后面要空一格
 
+* 表格[行高设置](http://blog.sina.com.cn/s/blog_82e1c12c0102wj0c.html) 别的方法都弄得乱七八糟的...
 * cite , reference 的小细节
   * Fig.~\ref  xxx~\cite （前面要加一个波浪线空格
   * i.e. 和 e.g.后面都要加逗号
@@ -153,9 +154,7 @@ It signals ...
   * [基础模板](https://www.cnblogs.com/qq952693358/p/8715697.html)
   * [同一作者属于不同单位如何排版](http://blog.sina.com.cn/s/blog_5d2054d90101gtms.html)
   * [IEEE排版的中文翻译](https://wenda.latexstudio.net/data/ueditor/php/upload/file/20190814/1565743586995462.pdf)
-
 * ❓
-  * networking CC是什么意思...
   * 哪些地方该cite，哪些地方不该啊
   * 哪些地方要加空格哪些地方不要啊。。。看起来页太丑了把..
     * Table~\ref{tab:xx} ?
@@ -168,6 +167,10 @@ It signals ...
   * 也可以问问cy：ICC的投稿格式还要再看下
     * key-word的选择应该还比较随意 ? 
     * 关键字个数，以及要不要大写
+  * 与别人的check下
+    * 文献的个数
+
+---
 
 
 

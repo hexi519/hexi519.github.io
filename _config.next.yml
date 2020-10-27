@@ -90,6 +90,7 @@ links_settings: # 设置友链
   layout: block
 links:
   "学神(Jinzhe Zeng)": http://njzjz.win
+  "Daven": https://big-cheng.com
 
 tagcloud: true  # 
 
