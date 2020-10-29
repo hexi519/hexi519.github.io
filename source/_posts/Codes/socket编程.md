@@ -26,6 +26,50 @@ tags:
 
 
 
+>  socket通信基础知识
+
+# 网络编程基础概念
+
+* AF_INET ， PF_INET  ， AF_UNIX
+
+  > AF: address family 
+  >
+  > PF: protocol family
+  >
+  > INET指的就是internet ，在网上传输的
+  >
+  > AF_INET（又称 PF_INET）是 IPv4 网络协议的套接字类型，AF_INET6 则是 IPv6 的；而 AF_UNIX 则是 Unix 系统本地通信。
+  >
+  > AF_INET 相比 AF_UNIX 更具通用性，因为 Windows 上有 AF_INET 而没有 AF_UNIX。
+
+* 网络编程中的[基本数据结构](https://www.jianshu.com/p/f811bff15de9)
+
+  都是结构体
+
+  * sockaddr （旧版本为ipv4设置的
+
+  * sockaddr_storage   // 为了兼容ipv6的 升级版本
+
+    > 用到sockaddr的地方都可以用sockaddr_storage来替代。
+
+  * addrinfo //存储地址信息的
+
+  * sockaddr_in & sockaddr_in6
+
+  * sockaddr_in和sockaddr使用上的区别
+
+    > sockaddr和sockaddr_in包含的数据都是一样的，但他们在使用上有区别：
+    >
+    > 1. 程序员不应操作sockaddr，sockaddr是给操作系统用的
+    >
+    >    程序员应使用sockaddr_in来表示地址，sockaddr_in区分了地址和端口，使用更方便。
+    >
+    > 2. 一般用法是：程序员把类型、ip地址、端口填充sockaddr_in结构体，然后强制转换成sockaddr，作为参数传递给系统调用函数
+
+
+
+
+
 # API
 
 * socket就是一个文件描述符，但是没有文件名（Linux有七种文件描述符）

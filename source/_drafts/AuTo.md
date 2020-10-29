@@ -138,28 +138,14 @@ It signals ...
 
 
 
-
-
 # 论文排版心得
 
-图片应该尽量放在colomn的top/bottom，不要放在中间位置，且应该在引用出现之后出现
-
-标点符号后面要空一格
-
-* 表格[行高设置](http://blog.sina.com.cn/s/blog_82e1c12c0102wj0c.html) 别的方法都弄得乱七八糟的...
 * cite , reference 的小细节
   * Fig.~\ref  xxx~\cite （前面要加一个波浪线空格
   * i.e. 和 e.g.后面都要加逗号
-* 作者排版
-  * [基础模板](https://www.cnblogs.com/qq952693358/p/8715697.html)
-  * [同一作者属于不同单位如何排版](http://blog.sina.com.cn/s/blog_5d2054d90101gtms.html)
-  * [IEEE排版的中文翻译](https://wenda.latexstudio.net/data/ueditor/php/upload/file/20190814/1565743586995462.pdf)
+  * \label要加到适当的位置，才不会从 Fig.1 变成 Fig. Ⅱ-Ⅰ这样的 ❓不过什么是适当的？需要check下
 * ❓
   * 哪些地方该cite，哪些地方不该啊
-  * 哪些地方要加空格哪些地方不要啊。。。看起来页太丑了把..
-    * Table~\ref{tab:xx} ?
-    * 数字~单位 ？
-    * \S~\ref{sec"xx} ?
   * 行内公式还没有好好check
     * 前后都要加空格
   * Transactions on Network Science and Engineering (TNSE) 这个刊你见过没哇...CCF等级没见到过，但看起来应该还不错？
@@ -167,8 +153,8 @@ It signals ...
   * 也可以问问cy：ICC的投稿格式还要再看下
     * key-word的选择应该还比较随意 ? 
     * 关键字个数，以及要不要大写
-  * 与别人的check下
-    * 文献的个数
+  * 没有跟state-of-art比较（比如BBR）,有关系么....
+  * 是所有图片都转成pdf么
 
 ---
 

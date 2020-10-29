@@ -393,6 +393,8 @@ Definition 3.1: T-agent is the Deep RL agent that controls the routing of termin
   * 离线如何train的(捕获脱机TM数据)，在线如何train(也是简单说了下)
 
   > To make our framework work well after deployment, we need to train the agents efficiently. Since Deep RL agents learn policies through the exploration-exploitation-based method, online learning from scratch has been widely known to result in poor performance at the beginning [26]. In this paper, we take a combined offline and online strategy. In the offline phase, the agents are trained in a simulated network which has the same topology and capacity settings as the real one. The simulated network will be initialized with offline TMs captured from the real network. We train these agents incrementally using various TMs. After training, the learned DNN parameters will be loaded to online agents for inference (i.e., decision making). During the online stage, the system can continue to improve with little communication among regions and make near-optimal routing decisions quickly. We demonstrate how to train agents in Section IV-C.
+  >
+  > 为了使我们的框架在部署后能够正常工作，我们需要有效地培训代理。 自从Deep RL代理通过基于探索-开发的方法学习策略以来，从头开始的在线学习就广为人知，其结果是一开始就表现不佳[26]。 在本文中，我们采用了组合的离线和在线策略。 在离线阶段，代理在模拟网络中训练，该网络具有与实际网络相同的拓扑和容量设置。 将使用从真实网络中捕获的脱机TM初始化模拟网络。 我们使用各种TM逐步训练这些代理。 训练后，学习到的DNN参数将被加载到在线座席进行推理（即决策）。 在在线阶段，该系统可以继续改进，而区域之间的通信很少，并且可以快速做出接近最佳的路由决策。 我们将在第IV-C节中演示如何培训代理商。
 
 
 

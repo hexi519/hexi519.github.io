@@ -89,8 +89,9 @@ links_settings: # 设置友链
   title: Friend Links
   layout: block
 links:
-  "学神(Jinzhe Zeng)": http://njzjz.win
+  "Jinzhe Zeng": http://njzjz.win
   "Daven": https://big-cheng.com
+  "荷西·H": https://blog.csdn.net/Hesy_H
 
 tagcloud: true  # 
 
