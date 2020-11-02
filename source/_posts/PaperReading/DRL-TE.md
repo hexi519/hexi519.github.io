@@ -1,5 +1,5 @@
 ---
-title: DRL-TE | Experience-driven Networking: A Deep Reinforcement Learning based Approach
+title: DRL-TE | Experience-driven Networking, A Deep Reinforcement Learning based Approach
 top: false
 cover: false
 toc: true

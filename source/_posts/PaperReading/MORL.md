@@ -1,3 +1,18 @@
+---
+title: MORL
+top: false
+cover: false
+toc: true
+mathjax: true
+date: 2020-10-20 01:28:19
+categories: PaperReading
+description: A Generalized Algorithm for Multi-Objective Reinforcement Learning and Policy Adaptation, NIPS'19  普林斯顿
+tags:
+    - Reinforcement Learning
+---
+
+
+
 A Generalized Algorithm for Multi-Objective Reinforcement Learning and Policy Adaptation
 NIPS'19  普林斯顿
 

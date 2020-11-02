@@ -125,7 +125,8 @@ tags:
   >
   > mahimahi是本地测试的时候才要使用的，嵌入到pantheon-tunnel里面的，which means 手动测试的时候应该是先起pantheon-tunnel，然后起mahimahi的link
 
-* ==目前打开了所有第三页的问题（也就是看了前90个帖子）==
+  
+
 
 ## user group
 
@@ -135,7 +136,7 @@ tags:
 
   * **命令**
 
-    * ./test.py -f  可以跑多个相同scheme的sender
+    * <u>**./test.py -f**</u>  可以跑相同scheme的sender的多个流
 
       > For instance, " **./test.py local -f 2 --schemes cubic --data-dir dumbbell** "
       >
@@ -155,23 +156,29 @@ tags:
 
     * 万神殿是用于测量长流量（单个流的测试持续30秒，三个竞争流的测试持续10s）吞吐量和延迟的设计。[设计者认为](https://groups.google.com/g/pantheon-stanford/c/PATsfr1bYUo)10s和30s已经足够网络中的短暂突发情况恢复稳定了,因为mostly an unloaded RTT is 10ms ,10s相当于100个RTT了
 
-      * 且万神殿由于是full-throttle的（关于full-throttle的解释请看[这个]()），被批评不符合真实世界的流量，因为真实世界中不会全部尤其是Web traffic（which is a good example where the transient behavior really matters）。Pantheon需要进一步、细粒度的、根据bytes来实现管控的流量
+      * 且万神殿由于是full-throttle的（<u>**关于full-throttle的解释请看[这个](https://groups.google.com/g/pantheon-stanford/c/ijS9izLAc54)**</u>），被批评不符合真实世界的流量，因为真实世界中不会全部尤其是Web traffic（which is a good example where the transient behavior really matters）。Pantheon需要进一步、细粒度的、根据bytes来实现管控的流量
 
     * 万神殿将拥塞控制视为与可靠性及其实现方式完全正交（例如，使用ACK / NACK /序列号和重传，FEC或某种组合）。
 
-    * [<cc>\_datalink\_run<ID>.log和<cc>\_mm_datalink\_run<ID>.log的区别](https://groups.google.com/g/pantheon-stanford/c/wT2FciWoilU)
+    * **[<cc>\_datalink\_run<ID>.log和<cc>\_mm_datalink\_run<ID>.log的区别](https://groups.google.com/g/pantheon-stanford/c/wT2FciWoilU)**
+
+      > e.g. bbr_datalink_run1.log  和  bbr_mm_datalink_run1.log
 
       >  大部分情况下应该使用<cc>\_datalink\_run <ID> .log分析性能，您可以在[这里](https://pantheon.stanford.edu/faq/#raw-logs)找到其格式。除非您要执行自己的分析，否则可以只运行提供的脚本analyst.py。 <cc> \_mm\_datalink\_run <ID> .log主要用于可视化Mahimahi中的仿真带宽（以及经过测试的拥塞控制的吞吐量），因为只有mm-link知道input traces以及their bandwidth。
-
+    
     * Pantheon仅正式支持Ubuntu
+    
+      
     
   * **重要的文件**
   
-    * pantheon_perf.json  有所有流的多维数据指标
+    * **<u>pantheon_perf.json  有所有流的多维数据指标</u>**
   
       <img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202009/13/213247-575474.png" alt="image-20200913213241031" style="zoom:67%;" />	
   
   > 简单解释下：scheme正下面的一级里面的1，2，3代表着这是第几次run，其下面的1，2...，all代表着该次run的第几条流的stats & 平均的情况
+  
+  
   
 * **代码细节**
 
@@ -205,9 +212,13 @@ tags:
 
   * [ ] [添加自己的CC到pantheon中去](https://github.com/StanfordSNR/pantheon/blob/master/README.md#how-to-add-your-own-congestion-control)
 
-  * [ ] 关于[如何阅读每次的report](https://groups.google.com/g/pantheon-stanford/c/uF90COh6XvY) 给了一点启发
+  * [x] 关于[如何阅读每次的report](https://groups.google.com/g/pantheon-stanford/c/uF90COh6XvY) 给了一点启发
 
-  * [ ] [修改pantheon的代码，计算实时发送数量](https://groups.google.com/g/pantheon-stanford/c/4kIpgr6lL0A) 可能会对源码解释 有一定的帮助
+    > 额...其实没有什么有效信息...
+
+  * [x] [修改pantheon的代码，计算实时发送数量](https://groups.google.com/g/pantheon-stanford/c/4kIpgr6lL0A) 可能会对源码解释 有一定的帮助
+
+    > 这个主要是修改pantheon-tunnel的
 
   * 调试pantheon
 
@@ -218,7 +229,11 @@ tags:
 
   * [x] [#符号以及进出口的符号解释](https://groups.google.com/g/pantheon-stanford/c/ZF9p6TlpL7k)
 
-    > \# 就是表示这个机会没有被用上
+    > \# 就是表示 按照uplink和downlink的trace来说了，这个时间点可以发这个，但是实际上没有发
+    >
+    > [more explanasion](https://groups.google.com/g/pantheon-stanford/c/JzyIP8R3Yag)
+    >
+    > > 一般来说#是不会出现在 mm_xx相关的文件里面的，只会出现在pantheon_tunnel的里面，但是如果是在本地运行的话，还是会有
 
   * [在云服务器上使用公有ip和本地的进行测试](https://groups.google.com/g/pantheon-stanford/c/z957ZO536fM)
 
@@ -243,6 +258,8 @@ tags:
 * [ ] [An error when I test locally "src/experiments/test.py local --all"](https://groups.google.com/g/pantheon-stanford/c/_4dwKj6YgTU)
 
 * [ ] [[Errno 3] No such process](https://groups.google.com/g/pantheon-stanford/c/DuCN5nS0Bb4)
+
+* [ ] [如何使用pantheon训练indigo](https://groups.google.com/g/pantheon-stanford/c/PL5a-UUy9jo)
 
 * [x] [Merge tunnel log generate empty log](https://groups.google.com/g/pantheon-stanford/c/yCtI9aI1C_U) ：给出了==正确运行test.py的时候应有的结果== 【大力出奇迹，重装就完事儿了 : (  果然之前安装的mahimahi就是有问题... 】
 
@@ -275,6 +292,7 @@ tags:
     * [x] [Indigo的报错](https://groups.google.com/g/pantheon-stanford/c/ASAZdjq5-vA) 缺文件
     * [ ] [BDP计算相关的代码理解](https://groups.google.com/g/pantheon-stanford/c/b2ANo_shWS0)
     * [ ] [训练的文件 以及 test.py -t 可以调整Pantheon的测试时间](https://groups.google.com/g/pantheon-stanford/c/PL5a-UUy9jo)
+    * [ ] [如何使用pantheon训练indigo](https://groups.google.com/g/pantheon-stanford/c/PL5a-UUy9jo)
     
     自己遇到的问题：
     
@@ -286,7 +304,7 @@ tags:
 
 
 
-* [x] log里面到底是什么？？
+* [x] log里面到底是什么
 
 * [ ] [pantheon-tunnel的理解](https://groups.google.com/g/pantheon-stanford/c/Bz_8D3zitlg)
 
@@ -372,15 +390,14 @@ src/analysis/analyze.py --data-dir /data/indigoTime
 # ask in Google group
 
 * [x] What's "full-throttle "mean？ Does it mean that it lasts for the whole timescale or it send as many bytes as possible to fullfill the tunnel ?
-* [ ] generic CC是TCP-RL的那个算法么
-* [ ] 抖动如何添加，看下trace库里面有没有
 
+* [x] generic CC是TCP-RL的那个算法么
 
+  > 感觉不是，是个集合体（including copa,remy等，我姑且认为是copa出品的
 
-# attention
+* [x] 抖动如何添加，看下trace库里面有没有
 
-* 要看看orca的代码库
-* 我还可以用人家跑出来的结果的trace进行攻击啊 不错啊
+  > 自己造就行了（利用indigo文件里面有个generate_trace的函数
 
 
 

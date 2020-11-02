@@ -3,7 +3,7 @@ title: Fuzzy Kanerva-based TCP Q-learning
 top: false
 cover: false
 date: 2020-10-25 16:13:55
-password: 96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e
+description: DCOSS'16 
 categories: PaperReading
 tags:
     - Network
@@ -12,8 +12,6 @@ tags:
 ---
 
 # Hesy summary 
-
-DCOSS'16 
 
 主要用于梳理下行文思路，用于写作学习。abstraction,design,performance都很出彩
 

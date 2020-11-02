@@ -86,11 +86,15 @@ tags:
 
 
 
-
-
-
-
 # 画图
+
+## 代码展示（主要用axex）
+
+[my codes on github](https://nbviewer.jupyter.org/github/hexi519/CodesSnippets/blob/master/pythonDemo/matplotlibConfig.ipynb)
+
+
+
+## 概念介绍
 
 > 所有高级的api，包括seaborns在内，都是基于最基本的matplotlib开始的，那么一定都得先搞清matplotlib的基本概念（ax和fig等）
 
@@ -111,7 +115,7 @@ tags:
 >
 > 其实把每一次 `subplot` 动作看作是独立的就行了，第一次将整个画板划分为1行3列完全不影响第二次划分为1行2列，它们仅影响当前划分后子图的大小。
 >
-> <img src="https://img-blog.csdnimg.cn/20190930150818814.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxMzQ3ODY5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" style="zoom:67%;" />
+> <img src="https://img-blog.csdnimg.cn/20190930150818814.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMxMzQ3ODY5,size_16,color_FFFFFF,t_70"  />
 
 
 
@@ -133,7 +137,7 @@ tags:
   	# 注意，这里是plt.subplot而不是fig.add_subplot，which让我感到奇怪，但是先记住吧
       
   ######## 使用subplots,which是最常用的 ########
-  fig, axes = plt.subplots(1, 2, figsize=(6,3))
+  fig, axes = plt.subplots(1, 2, figsize=(6,3))  # 不仅会出现一个新的axes对象，还会创建一个新的fig对象，which the axes belongs to
   
   # plot data
   axes[0].plot(A,B)

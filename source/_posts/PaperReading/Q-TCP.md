@@ -1,5 +1,5 @@
 ---
-title: QTCP: Adaptive Congestion Control with Reinforcement Learning
+title: QTCP, Adaptive Congestion Control with Reinforcement Learning
 top: false
 cover: false
 toc: true
@@ -65,8 +65,9 @@ tags:
 # 3. QTCP: APPLY Q-LEARNING TO TCP CONGES- TION CONTROL
 
 * good sentenses
-  *  逻辑
-
+  
+*  逻辑
+  
 * 开场白如上
 
 * overveiw of Q-TCP
