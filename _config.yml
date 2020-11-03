@@ -130,3 +130,8 @@ search:
   field: post
   content: true
   limit: 100
+
+encrypt:
+  enable: true
+  default_abstract: 此文章已被加密，需要输入密码访问。
+  default_message: 请输入密码以阅读这篇私密文章。
