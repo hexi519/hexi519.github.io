@@ -5,8 +5,8 @@ cover: false
 toc: true
 mathjax: true
 date: 2020-10-19 10:24:31
-categories: PaperReading
-description: MASS'19
+categories: ExtensiveReading
+description: MASS'19 (ccf C刊)  
 tags:
     - Network
     - Reinforcement Learning

@@ -4,7 +4,7 @@ top: false
 cover: false
 date: 2020-10-25 16:13:55
 description: DCOSS'16 
-categories: PaperReading
+categories: ExtensiveReading
 tags:
     - Network
     - Reinforcement Learning

@@ -5,7 +5,7 @@ cover: false
 toc: true
 mathjax: true
 date: 2020-10-25 15:57:22
-categories: PaperReading
+categories: ExtensiveReading
 description: TNSE'19 主要梳理下行文思路，用于写作学习 (思路跟Fuzzy Karnerva-based那篇文章是一样的)
 tags:
     - Network
