@@ -103,9 +103,65 @@ tags:
 
   * ```在PG策略中，如果我们用Q函数来代替R，那么我们就得到了Actor-Critic方法。```
 
-    > 所以这里我的理解是：引入了值函数，which作为critic，就是Actor-Critic，有没有baseline并不是最重要的（AC里面，baseline也不一定要用$V(S_t)$ ，不过是因为一般来说，都有了$Q(s,a)$，没道理不用$V(S_t)$作为baseline ）
+    > 所以这里我的理解是：引入了值函数去估计期望累计回报，which作为critic，就是Actor-Critic，有没有baseline并不是最重要的（AC里面，baseline也不一定要用$V(S_t)$ ，不过是因为一般来说，都有了$Q(s,a)$去估计累计期望回报，没道理不用$V(S_t)$作为baseline ,Vanilla PG里面的baseline也是用的$V(S_t)$,但还是PG系列 ）
 
-  
+
+
+
+# reference
+
+* data-whale强化学习教程
+
+* 刘建平的系列博客确实不错,有空回顾下
+
+  * 已完成
+
+    * 8([价值函数的近似表示与Deep Q-Learning](https://www.cnblogs.com/pinard/p/9714655.html)) [NIPS'13] + 9([Deep Q-Learning进阶之Nature DQN](https://www.cnblogs.com/pinard/p/9756075.html)) [NIPS'15]
+
+      * 三种神经网络的输入输出方式
+
+      * NIPS'13 , 改进主要是经验池回放 ,Q-learning-->DQN
+
+      * NIPS'15 , 改进主要是双网络,  DQN -->Nature DQN
+
+        > 注意,<u>双网络并不是DDQN才提出来的</u>
+
+      * 介绍了下CartPole-v0的基本情况
+
+      * 8里面说PG用的是交叉熵，我就不是很懂了
+
+        ![image-20201114104101708](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/14/104102-559352.png)
+
+        * [ ] 【建模思想】奖励设置要均匀，进一步还可以尝试下下归一化 ==其实我是有点疑惑，后面看看能不能找到理论依据==
+
+          ![image-20201114110105580](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/14/111303-795092.png)
+
+      * 8的评论里面还提到了为何现在用的都是TD(0)：实现方便，如果是多步TD，需要改变buffer的构造，改成( s,a,r,s',a',r',s''... ) ，比较麻烦。虽然经验表明了TD(λ)在λ>1的时候效果比较好（注意，TD(λ)是给多步TD加了权重，更复杂），但是实际上单步TD就够用了。
+
+    * 10([Double DQN (DDQN)](https://www.cnblogs.com/pinard/p/9778063.html))
+
+      * DQN存在过度估计的问题,which我没有细究(原文有),有一些文章(e.g.[JQWang的知乎专栏](https://zhuanlan.zhihu.com/p/97853300))在对论文的详解中有说,但是刘建平这里缺失了
+
+        > * [ ] JQWang的论文解读专栏还是挺详细的
+        > * [ ] 评论里面提到了过度估计的事情，which感觉还不错。==优先学习一下==
+        >
+        > * [DataWhale的教程](https://datawhalechina.github.io/leedeeprl-notes/#/chapter7/chapter7)给的解释还是不错的，但其实我觉得没有说清楚:过高估计本身是没影响的，最重要的还是策略的问题，有了双网络，就能有个理性的target，朝正确的方向更新，本身选动作不是很重要，没选到$\underset{a}argmax Q'(s,a)$的话我就当作探索的一个experience也可以哇，重要的是更新价值函数！！
+
+      * 改进就是 表现网络/当前网络中找action ( via argmax ),在target网络中找Q值
+
+      * [ ] 提到了ICML'16的[rl tutorial](https://icml.cc/2016/tutorials/deep_rl_tutorial.pdf) ,也可以翻翻后面几年的
+
+      * [ ] 由S和A得到R, S'和is_end时，R和is_end是根据环境反馈回来的，which对应的是：**S**是否is_end以及S情况下采取A得到的R
+
+        > 确定么？我总感觉是S'是否是end ， V(end_state)=0
+
+    * 11([Prioritized Replay DQN](https://www.cnblogs.com/pinard/p/9797695.html))
+
+      * 
+
+    * 19[AlphaZero](https://www.cnblogs.com/pinard/p/10609228.html)建模设计中有奖励回溯的部分
+
+* [ ] 抓到一个大佬的[gitbook](https://hujian.gitbook.io/deep-reinforcement-learning/) (hujian.gitbook.io)
 
 
 
@@ -118,10 +174,19 @@ tags:
 
     > 但是我看Q-learning也是一步一更新哇...感觉采样大这个劣势并没有利用好？
 
-* [ ] 编程实战书P21 要结合历史观测 是因为部分可观测性？而不是因为非马尔可夫性？
+* [x] 编程实战书P21 要结合历史观测 是因为部分可观测性？而不是因为非马尔可夫性？
 
   似乎说得通... 我是因为没有认清当前的状态是什么所以才需要多个state拼在一起的窗口
 
 * [ ] 交叉熵与one-hot之间的联系
   * [百度飞桨部分给出了一些解释](https://datawhalechina.github.io/leedeeprl-notes/#/chapter4/chapter4)给出了点解释，which我觉得还是没有讲清楚
   * check下[强化学习纲要](https://github.com/zhoubolei/introRL)对应部分的讲解
+  
+* [ ] epsilon的减小方式有没有什么特别的讲究\
+
+* [ ] [正月灯笼](https://www.bilibili.com/video/BV1wa4y177Q1)函数式编程让我感到疑惑:
+
+  up说函数式编程可以避免在debug的时候陷入循环中，那么我很好奇函数式编程如何debug
+  list.append为何拖累了速度呢？up有没有相关资料可以分享一下~
+  想问下第二种方式和第三种方式是不是除了形式上并没太大的区别，主要还是第一种方式里面的append是性能瓶颈?
+

@@ -38,12 +38,18 @@ tackle crucial and timely[这个词觉得不是很合适] challenges
 # introduction
 
 * mater experience
+  * intro structure
 
 <img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202010/15/202802-958772.png" alt="image-20201015202754285" style="zoom:50%;" />
 
+  * pattern sample 【如此排版】
 
+    <img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/08/111624-492215.png" alt="格式sample" style="zoom: 33%;" />
 
+    * 分点描述
+    * 首行加粗
 
+    
 
 # Design
 

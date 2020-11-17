@@ -424,8 +424,9 @@ Keras 、Estimator 、TFLearn，都是主要针对模型训练和模型定义进
   > 就是说`client`要跑计算时，其实要先要把计算图以及要执行的节点（Graph中的Node）发给`master`，`master`负责资源调度（就是这个计算该怎么执行，在哪些设备执行），最终的执行需要各个`worker`进程（使用本地设备执行计算），所以每个server会包含`master`和`worker`两个部分。关于`master`的具体作用，可以参考一下TF教程中的[TensorFlow Architecture](https://link.zhihu.com/?target=https%3A//www.tensorflow.org/extend/architecture)，不过这里贴一张图，大家意淫一下：
 
 * 主要是几个api搞不清
-  * tf.train.replica_device_setter函数，里面的worker_device参数，常用的是: /job:worker
-
+  
+* tf.train.replica_device_setter函数，里面的worker_device参数，常用的是: /job:worker
+  
 * 
 
 
@@ -444,7 +445,13 @@ Keras 、Estimator 、TFLearn，都是主要针对模型训练和模型定义进
 
     > 上述的默认都是False
 
+* tf.get_collection( key, scope=None )  获取部分变量的好方法
 
+  > tf.get_collection( tf.GraphKeys.GLOBAL_VARIABLES, scope='eval') 
+  >
+  > tf.get_collection( tf.GraphKeys.GLOBAL_VARIABLES, scope='target') 
+  
+  * 只有tensor才会被反向传播，如果传进来的float32的数组，就不会
 
 
 
@@ -564,3 +571,8 @@ Keras 、Estimator 、TFLearn，都是主要针对模型训练和模型定义进
   * movan有[说明](https://mofanpy.com/tutorials/machine-learning/tensorflow/scope/)
   * get_variable 方便用于共享变量，which 大家都不是很赞成的样子
 
+
+
+* tf.Graph.get_collection()
+
+  

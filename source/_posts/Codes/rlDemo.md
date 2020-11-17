@@ -54,7 +54,38 @@ sudo /home/hesy/.conda/envs/py36/bin/python main.py --gamma 0.95 --es 0.99 --me 
 
 # DQN
 
-还没整理好，先占个坑位
+## 环境配置
+
+游戏：CartPole-v0，action是两维度(左和右，分别用0和1表示)， state是四维的（$x,\overset{·}x,\theta,\overset{·}\theta$）（位置，速度，杆子与竖直方向的夹角，角度变化率）；左移或者右移小车的*action*之后，*env*会返回一个+1的*reward*。其中*CartPole-v0*中到达200个*reward*之后，游戏也会结束，而*CartPole-v1*中则为*500*。最大奖励（*reward*）阈值可通过前面介绍的注册表进行修改。
+
+
+
+## 错误记录 & 修正
+
+```bash
+Traceback (most recent call last):
+  File "main.py", line 158, in <module>
+    eval(cfg)
+  File "main.py", line 130, in eval
+    action = agent.choose_action(state,train=False)  # 根据当前环境state选择action
+  File "/home/hesy/rlreview/leedeeprl-notes/codes/dqn/agent.py", line 76, in choose_action
+    q_value = self.target_net(state)
+  File "/home/hesy/.conda/envs/py36/lib/python3.6/site-packages/torch/nn/modules/module.py", line 541, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/hesy/rlreview/leedeeprl-notes/codes/dqn/model.py", line 29, in forward
+    x = F.relu(self.fc1(x))
+  File "/home/hesy/.conda/envs/py36/lib/python3.6/site-packages/torch/nn/modules/module.py", line 541, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/hesy/.conda/envs/py36/lib/python3.6/site-packages/torch/nn/modules/linear.py", line 87, in forward
+    return F.linear(input, self.weight, self.bias)
+  File "/home/hesy/.conda/envs/py36/lib/python3.6/site-packages/torch/nn/functional.py", line 1370, in linear
+    ret = torch.addmm(bias, input, weight.t())
+RuntimeError: Expected object of device type cuda but got device type cpu for argument #2 'mat1' in call to _th_addmm
+```
+
+
+
+
 
 
 
