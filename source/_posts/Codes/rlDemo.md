@@ -83,9 +83,13 @@ Traceback (most recent call last):
 RuntimeError: Expected object of device type cuda but got device type cpu for argument #2 'mat1' in call to _th_addmm
 ```
 
+> choose_action在eval的时候默认选择了CPU，但是模型可能load在GPU上..
+>
+> ![image-20201118130642905](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/18/130645-532470.png)
 
+ * ==？==我想问下这里使用CPU进行evaluation是必须的么？是考虑到不想把变量转移到GPU上增加开销才写死到CPU上进行evaluation的吗？写死的话...就会出现问题....
 
-
+   
 
 
 
