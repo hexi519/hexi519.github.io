@@ -113,12 +113,12 @@ In this section, we state the optimization problem that leads to our congestion 
 
 ## A Primal Problem
 
-* 无向链路集合![image-20201112093628276](C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20201112093628276.png)with capacity $c_L$ , and node set $S$
+* 无向链路集合![image-20201112093628276](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/19/061641-41204.png)with capacity $c_L$ , and node set $S$
 
 * source $s$ is characterized by 4 parameters $(L(s),U_s,m_s,M_s )$
   * ![image-20201112093823706](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/12/093928-566242.png)是s使用的链路
   * ![image-20201112093839793](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/12/093928-477615.png)是效用函数 ==这里给映射到负的去了。。可以。不过效用函数本来是正的 ？？why一定positive== 是严格凹的 in its argument 【==in its argument就不是很懂什么意思了...==】
-  * ![image-20201112093928373](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/12/093931-317765.png)是最小和最大的传输速率，required by source $s$. ![image-20201112094016129](C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20201112094016129.png)
+  * ![image-20201112093928373](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/12/093931-317765.png)是最小和最大的传输速率，required by source $s$. ![image-20201112094016129](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/19/061911-954792.png)
     * 这里画蛇添足定义了个区间![image-20201112094200258](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/12/094201-949888.png) and vector ![image-20201112094214541](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/12/094251-895066.png)，也许是为了后面方便描述吧
     * 以及![image-20201112094302977](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/12/094319-535488.png) 还有他们之间的关系 : ![image-20201112094353039](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/12/094409-28038.png)![image-20201112094417287](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/12/094418-230495.png)
 
@@ -134,9 +134,9 @@ In this section, we state the optimization problem that leads to our congestion 
 
 ## B dual problem
 
-![image-20201112100641332](C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20201112100641332.png)
+![image-20201112100641332](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/19/031850-49320.png)
 
-![image-20201112101120788](C:\Users\hesy\AppData\Roaming\Typora\typora-user-images\image-20201112101120788.png)
+![image-20201112101120788](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/19/031915-980440.png)
 
 ==这里的转换后面要再品品==
 
@@ -157,12 +157,13 @@ routing matrix $R_{ls}$
 * 第一段的==induced norm?==
 * Kuhn-Tucker theorem 就是KKT条件
 
+
+
 # question
 
 * abstract都没怎么看懂...
 
 * 对偶问题，拉格朗日要满组KKT才是强对偶（check
 
-* [这个网站](https://www.cs.helsinki.fi/u/ldaniel/mm_cn/)很好，我需要学习下，讲拥塞相关的数学知识
 * [这个link](https://slideplayer.com/slide/8113412/)是这篇文章的slide link
 * [这个老师的博客](https://www.ece.rutgers.edu/~marsic/)

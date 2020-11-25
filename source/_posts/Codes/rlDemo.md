@@ -89,7 +89,5 @@ RuntimeError: Expected object of device type cuda but got device type cpu for ar
 
  * ==？==我想问下这里使用CPU进行evaluation是必须的么？是考虑到不想把变量转移到GPU上增加开销才写死到CPU上进行evaluation的吗？写死的话...就会出现问题....
 
-   
-
 
 
