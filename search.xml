@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>MeetingNotes1101</title>
+      <link href="/MeetingNotes/MeetingNotes1101/"/>
+      <url>/MeetingNotes/MeetingNotes1101/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><span class="exturl" data-url="aHR0cHM6Ly93eC52emFuLmNvbS9saXZlL3R2Y2hhdC0xNTY1MzUyMTUzP3NoYXJldWlkPTMzNzU0MTY1NCZ2cHJpZD0wJnNoYXJldHN0YW1wPTE2MDM1ODc1NjA4MTkjLw==">视频地址<i class="fa fa-external-link-alt"></i></span></p><h1 id="陈凯-net-4-AI"><a href="#陈凯-net-4-AI" class="headerlink" title="陈凯 net 4 AI"></a>陈凯 net 4 AI</h1><img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/18/163439-988187.png" style="zoom:50%;" /><ul><li><p>compress 传输量 并不能降低尾部传输时间</p><p>当然，平均的时延是会降低</p><p>说明瓶颈不在于传输量</p></li><li><p>丢一定量的数据包并不会影响模型的convergence</p><img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/18/163348-450748.png" alt="image-20201118161135895" style="zoom:50%;" /><ul><li>那么应该丢哪些包？ 后层的gradient和larger gradient更重要</li></ul></li><li><p>DNN流的特性：跟以前的信息包不一样，前者是一个message包含多个包（包之间存在依赖性），现在是一个包包含多个message（包与包之间关联性不大），所以不用太多去考虑包乱序等事情。</p><img src="https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202011/18/163350-390697.png" alt="image-20201118163215817" style="zoom:50%;" /><blockquote><p>至于现在 一个包 包含多个message这个特性是怎么来的，我就没有细究了。</p></blockquote><p>之前的ECMP等负载均衡，就会考虑 perflow的粒度性能就差了，perpacket的粒度还得考虑乱序问题。</p></li></ul><h1 id="李丹-Net-4-AI"><a href="#李丹-Net-4-AI" class="headerlink" title="李丹 Net 4 AI"></a>李丹 Net 4 AI</h1><p>使用==贝叶斯优化==</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> MeetingNotes </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Network </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>recommand-sys-learning</title>
       <link href="/Codes/recommend-sys-learning/"/>
       <url>/Codes/recommend-sys-learning/</url>
@@ -393,7 +418,7 @@
       <link href="/ExtensiveReading/Route/SQR-DLWR/"/>
       <url>/ExtensiveReading/Route/SQR-DLWR/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>机器学习在计算机视觉和计算机游戏等领域的成功引发了人们对在计算机网络中应用机器学习的兴趣激增。 本文试图回答一个广泛争论的问题：我们能否通过强化学习（RL）来提高域内路由的性能，域内路由是Internet上最基本的模块之一？ 由于复杂的网络流量条件和较大的路由选择空间，很难为现有的基于RL的路由解决方案给出确切的答案。 为了深入了解基于RL的路由的挑战，我们系统地对不同的基于RL的路由解决方案进行了分类，并从可扩展性，稳定性，鲁棒性和收敛性方面研究了几种代表性方法的性能。 结合评估各种基于RL的路由解决方案的经验教训，我们提出了两种方法，称为监督Q网络路由（supervised Q-network routing (SQR)）和基于离散链路权重的路由（discrete link weight-based routing，DLWR），它们可以提高基于RL的路由的性能，并提高性能。 形成事实上的最短路径域内路由。</p><h1 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h1><p>​    路由是一种网络功能，可将数据包从给定的源传递到给定的目的地。 可以说，它是Internet中最基本的构建块，在服务质量（QoS）保证中起着至关重要的作用。 传统的路由策略，例如开放式最短路径优先（OSPF）路由[1]，可能会导致网络拥塞和链路利用率低，并且与<strong>最佳路由方法相比，性能可能会差5000倍[2]**。 在动态业务量变化的情况下，已经致力于优化路由路径。 例如，反压路由[3]最初是为无线网络提出的，也可以应用在有线网络中，它基于相邻节点之间的拥塞梯度来动态转发流量。 但是，它在路由路径中的收敛速度可能会很长，</strong>并且不一定会导致良好的小队列性能，如[4]<strong>中所证明的。 将机器学习应用于网络路由以获得更好的性能可以追溯到1994年，</strong>当时提出了Q路由的概念[5]。** 由于机器学习在其他领域（例如计算机视觉，游戏和自然语言处理）的巨大成功，最近对Q路由的兴趣再<strong>次兴起[6] [7]**。 另外，最近的一些研究通过在路由中应用深度（强化）学习，证明了令人鼓舞的结</strong>果[8] – [10]<strong>。 这些研究讨论了潜在的基于学习的路由方法，并使用一些典型的机器学习方法进行了评估，例如深度信念架构，深度神经网络（DNN）和信任区域策略优化（TRPO）。 **但是，Internet路由的性能在很大程度上取决于流量动态和各种网络状况</strong>。 <strong>例如，现有的Q路由及其变体会在数据包级别更新路由表，即，他们了解环境并估算单个数据包的数据包交付时间</strong>。 显然，它们的性能在高速网络中会受到影响，在高速网络中，数据包需要以微秒为单位转发。 <strong>在所有路由方案中，一个解决方案都不可能成为“最佳”解决方案并胜过其他解决方案</strong>。 根据这一观察，我们因此有动机去研究Internet路由中不同机器学习算法的利弊，并清除一些（虽然不太可能是全部）在路由中实际采用机器学习的障碍。 我们的研究并非不切实际地针对设计最有效的路由解决方案。 相反，我们提供了lessons(这里我觉得翻译成经验比较好)，在此基础上，我们展示了如何进一步改进现有方法。 </p><p>​    为此，我们研究了基于不同强化学习（RL）的路由策略对域内Internet路由性能的影响。 由于以下三个原因，我们缩小了关注点到RL和域内路由的: (1)<strong>基于RL的路由[8]不需要标记的数据</strong>，由于操作数据的规模大和网络的规模大，这是禁止的并且难以获得 状态;  （2）在路由器处于同一自治系统（AS）域内的域内路由中，可以获得所有路由信息；  （3）软件定义网络（SDN）的发展使通过全局网络视图通过中央控制平面实现智能路由算法变得容易了[11]。</p><p>​    我们在以下方面评估基于RL的路由：(1) <strong>可扩展性</strong>：在高速，大规模网络中是否可以保持良好的性能？(2) <strong>稳定性</strong>：路由方法是否对各种流量模式和网络条件具有弹性？(3) <strong>健壮性</strong>：路由方法是否可以有效避免“不良”路由状态?（例如，congested,long-delay links）？(4) <strong>Convergence</strong>：是否可以快速达到新的路由策略以适应动态网络变化？ 我们对强化学习的研究基于两种主要方法，即基于价值的优化方法和基于策略的优化方法。 图1总结了每种方法的架构及其相应的算法。在我们的研究中，对图1中标有*的算法（它们是强化学习的代表算法）进行了评估。 本文的贡献可以总结如下：</p><h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><ul><li><p>introduction中说到Q路由的事情</p><ul><li><p>在数据包级别更新路由表 ，能保证收敛么…</p></li><li><p>需要调研这些文章</p></li><li><p><strong>在所有路由方案中，一个解决方案都不可能成为“最佳”解决方案并胜过其他解决方案</strong></p><blockquote><p>原来路由也是分场景的！</p></blockquote></li></ul></li><li></li></ul>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h1><p>​    机器学习在计算机视觉和计算机游戏等领域的成功引发了人们对在计算机网络中应用机器学习的兴趣激增。 本文试图回答一个广泛争论的问题：我们能否通过强化学习（RL）来提高域内路由的性能，域内路由是Internet上最基本的模块之一？ 由于复杂的网络流量条件和较大的路由选择空间，很难为现有的基于RL的路由解决方案给出确切的答案。 为了深入了解基于RL的路由的挑战，我们系统地对不同的基于RL的路由解决方案进行了分类，并从可扩展性，稳定性，鲁棒性和收敛性方面研究了几种代表性方法的性能。 结合评估各种基于RL的路由解决方案的经验教训，我们提出了两种方法，称为监督Q网络路由（supervised Q-network routing (SQR)）和基于离散链路权重的路由（discrete link weight-based routing，DLWR），它们可以提高基于RL的路由的性能，并提高性能。 形成事实上的最短路径域内路由。</p><h1 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h1><p>​    路由是一种网络功能，可将数据包从给定的源传递到给定的目的地。 可以说，它是Internet中最基本的构建块，在服务质量（QoS）保证中起着至关重要的作用。 传统的路由策略，例如开放式最短路径优先（OSPF）路由[1]，可能会导致网络拥塞和链路利用率低，并且与<strong>最佳路由方法相比，性能可能会差5000倍[2]**。 在动态业务量变化的情况下，已经致力于优化路由路径。 例如，反压路由[3]最初是为无线网络提出的，也可以应用在有线网络中，它基于相邻节点之间的拥塞梯度来动态转发流量。 但是，它在路由路径中的收敛速度可能会很长，</strong>并且不一定会导致良好的小队列性能，如[4]<strong>中所证明的。 将机器学习应用于网络路由以获得更好的性能可以追溯到1994年，</strong>当时提出了Q路由的概念[5]。** 由于机器学习在其他领域（例如计算机视觉，游戏和自然语言处理）的巨大成功，最近对Q路由的兴趣再<strong>次兴起[6] [7]**。 另外，最近的一些研究通过在路由中应用深度（强化）学习，证明了令人鼓舞的结</strong>果[8] – [10]<strong>。 这些研究讨论了潜在的基于学习的路由方法，并使用一些典型的机器学习方法进行了评估，例如深度信念架构，深度神经网络（DNN）和信任区域策略优化（TRPO）。 **但是，Internet路由的性能在很大程度上取决于流量动态和各种网络状况</strong>。 <strong>例如，现有的Q路由及其变体会在数据包级别更新路由表，即，他们了解环境并估算单个数据包的数据包交付时间</strong>。 显然，它们的性能在高速网络中会受到影响，在高速网络中，数据包需要以微秒为单位转发。 <strong>在所有路由方案中，一个解决方案都不可能成为“最佳”解决方案并胜过其他解决方案</strong>。 根据这一观察，我们因此有动机去研究Internet路由中不同机器学习算法的利弊，并清除一些（虽然不太可能是全部）在路由中实际采用机器学习的障碍。 我们的研究并非不切实际地针对设计最有效的路由解决方案。 相反，我们提供了lessons(这里我觉得翻译成经验比较好)，在此基础上，我们展示了如何进一步改进现有方法。 </p><p>​    为此，我们研究了基于不同强化学习（RL）的路由策略对域内Internet路由性能的影响。 由于以下三个原因，我们缩小了关注点到RL和域内路由的: (1)<strong>基于RL的路由[8]不需要标记的数据</strong>，由于操作数据的规模大和网络的规模大，这是禁止的并且难以获得 状态;  （2）在路由器处于同一自治系统（AS）域内的域内路由中，可以获得所有路由信息；  （3）软件定义网络（SDN）的发展使通过全局网络视图通过中央控制平面实现智能路由算法变得容易了[11]。</p><p>​    我们在以下方面评估基于RL的路由：(1) <strong>可扩展性</strong>：在高速，大规模网络中是否可以保持良好的性能？(2) <strong>稳定性</strong>：路由方法是否对各种流量模式和网络条件具有弹性？(3) <strong>健壮性</strong>：路由方法是否可以有效避免“不良”路由状态?（例如，congested,long-delay links）？(4) <strong>Convergence</strong>：是否可以快速达到新的路由策略以适应动态网络变化？ 我们对强化学习的研究基于两种主要方法，即基于价值的优化方法和基于策略的优化方法。 图1总结了每种方法的架构及其相应的算法。在我们的研究中，对图1中标有*的算法（它们是强化学习的代表算法）进行了评估。 本文的贡献可以总结如下：</p><h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><ul><li><p>introduction中说到Q路由的事情</p><ul><li><p>在数据包级别更新路由表 ，能保证收敛么…</p></li><li><p>需要调研这些文章</p></li><li><p><strong>在所有路由方案中，一个解决方案都不可能成为“最佳”解决方案并胜过其他解决方案</strong></p><blockquote><p>原来路由也是分场景的！</p></blockquote></li></ul></li><li></li></ul>]]></content>
       
       
       <categories>
