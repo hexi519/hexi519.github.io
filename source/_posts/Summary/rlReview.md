@@ -107,6 +107,22 @@ tags:
 
 
 
+* 环境non-deterministic 和 deterministic的区别
+
+  * 取决于state是不是只受action影响，env自己是不是也在演化。
+
+  * 比如下棋，俄罗斯方块，你做了你的决定，你的下一个状态不是确定的 ( P(s,a)转移阵不是非0即1的 )
+
+    俄罗斯方块游戏里面的状态是
+
+  * 马里奥游戏就是deterministic的
+
+  > 网络中，输入的流量矩阵也是一个会引起state变化的，有一定概率的东西，所以也是non-deterministic
+
+  * non-stationary和non-deterministic异同：env肯定都是在演化的，但是前者env演化的模式并不固定( 以泊松分布为例，env的演化可以符合参数为$\lambda$的泊松分布( non-derterministic ) (这是一个概率分布)，但是$\lambda$参数本身不能随时间变化，否则相当于演化的概率分布发生了变动，也就是演化的模式是不固定的(non-deterministic)  )
+
+  
+
 
 # reference
 

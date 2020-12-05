@@ -6,7 +6,7 @@ toc: true
 mathjax: true
 date: 2020-08-07 22:35:17
 categories: Summary
-description: 关于拥塞控制的常识/resources
+description: 关于网络的常识/resources
 tags:
     - Network
 ---
@@ -38,14 +38,21 @@ tags:
 ## pacing
 * TCP的流控机制，基本上是有两种的，专业一点的说法分别叫做pure rate control和windows-based这两种
 	- pure rate control 
+		
 		+ 告诉你sender一个发送速率(bottleneck bandwidth)，sender的发送速率不超过这个确定值。
+		
 	- window-based control
+		
 		+ 这个就是常见的TCP 滑动窗口的协议，就是有一个ack确认后我才能发送下面的。
+		
 	- pacing结合了这两种
 		+ uses the tcp window to determine how much to send but uses rates instead of acknowledgments to determine when to send.
 		+ 为什么要这样，因为标准TCP的发包是back-to-back的,TCP的这种clumped方式会引发高延迟以及burst traffic下的丢包大大增加，同时还有ACK Compression，Multiplexing等各种问题都会导致性能受损，所以有人突出了一个机制，我们能不能不让包堆在一起发，在一个窗口里流出间隔，那我们的排队队长就会下降的。
 		+ pacing可以看作TCP的一个变体，是结合了上面的两个流控方式，他使用tcp window决定发多少,用bottleneck bandwidth决定什么时候发，它定义了一个发包的间隔
+		
 	- paing需要优化嘛？需要。 更多的可以看这个[专栏](https://zhuanlan.zhihu.com/p/30741073)搜集的paper  
+	
+	  
 
 
 ## ACK compression
@@ -82,8 +89,12 @@ tags:
 * 不仅要测拥塞程度是否改进了
 * 还要测量收敛速度和fairness to existing congestion control protocols
 
-
 # 数据中心的CC
+
+数据中心的基本设置![image-20201203113534852](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202012/03/113542-587066.png)
+
+
+
 ## learn from Lili Liu's paper
 * 一般**低延迟应用**的流**的 SLA** (Service Level Agreement)要求是 300ms 内完成
 
