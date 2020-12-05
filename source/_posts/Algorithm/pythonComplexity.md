@@ -14,7 +14,9 @@ tags:
 
 * refer
 
-  [python常用操作复杂度](https://zhuanlan.zhihu.com/p/321223265)
+  [python常用操作复杂度](https://www.jianshu.com/p/a8fa3d31aa40)
+
+
 
 ---
 
@@ -24,10 +26,22 @@ tags:
 
   list.index()	O(n)
 
+  in  O(n)
+
 * set
 
-  in  	O(n)
+  in  最差O(n)，平均情况下是O(1)
+  
+* dict
+
+  > 其实python中的dict就是一个哈希表的实现。
+  >
+  > 哈希表最差情况下查找是O(n) ,但是满足一定的假设，可以认为其平均性能是O(1)
+
+  * 插入、访问、清空、删除  都是O(1)
 
 
 
-* tips
+* OJ tips
+  * 一般来说时间复杂度是O(1e9) , 空间复杂度不要超过O(1e7)
+
