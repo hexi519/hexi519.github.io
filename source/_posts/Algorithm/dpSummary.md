@@ -57,6 +57,8 @@ tags:
 
 * [ ] [搜索：犹豫就会败北](https://www.bilibili.com/video/BV1Y7411N7Bn)  万物皆可搜索！
 
+* 线性动规，区域动规，树形动规，背包动规四类
+
 
 
 # reference
