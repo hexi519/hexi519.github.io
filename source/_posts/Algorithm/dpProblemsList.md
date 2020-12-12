@@ -12,6 +12,58 @@ tags:
 
 # 题目总结
 
+* 买卖股票的最佳时机系列
+
+  * Ⅰ 121
+
+    * [ ] [单调栈的题解以及系列题目](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/c-li-yong-shao-bing-wei-hu-yi-ge-dan-diao-zhan-tu-/)
+
+      > 单调栈的应用场景 **当你需要高效率查询某个位置左右两侧比他大（或小）的数的位置的时候**
+
+    * [ ] 似乎也用双指针来解决这个问题
+
+    * [这个题解](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/gu-piao-wen-ti-python3-c-by-z1m/)真的很不错
+
+      > 本题最妙的方法 其实是 dp思想的优化
+
+      [腐烂的橘子](https://leetcode-cn.com/u/z1m/)似乎对动归的理解比较深，有时间可以看看他的系列
+
+      	* [ ] [背包的理解](https://leetcode-cn.com/problems/coin-lcci/solution/bei-bao-jiu-jiang-ge-ren-yi-jian-da-jia-fen-xiang-/)
+      
+    * [ ] [123 带冷冻期的股票交易]()
+  
+* Ⅱ 122
+  
+  * [ ] 这个[精选题解](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/solution/tan-xin-suan-fa-by-liweiwei1419-2/)给出了股票交易的一系列算法
+  
+* Ⅲ 123
+  
+  * [ ] 我想写成k在第一维度，day在第二维度的，更像是背包/阶段划分的思想
+  
+  * [ ] 有人说就是个背包，其实我觉得就是最后的形式上比较像而已，没有必要强行联想...
+  
+    不过可以看下人家怎么理解背包的...2333
+  
+  * 压缩要倒着写，自己写的时候要注意下
+  
+    * [ ] 但是[这篇](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/solution/zhuang-tai-ya-suo-shi-guan-yu-kshi-fou-dao-xu-yao-/)分析了为什么可以正序
+  
+      > "然计算过程中的一个变量值不同，但这一个值的差异并不会影响最终结果" 有点意思
+  
+  * 需要注意初始化，尤其是下面的题目，K>=N/2的情况要注意
+  
+* Ⅳ 188
+  
+  * 不停看到有人用哨兵/N指针的思路...看看呢
+  
+  * 309 含冷冻期的买卖
+  
+  * 714 含手续费的买卖
+
+
+
+
+
 * **打家劫舍系列**
 
   * 打家劫舍Ⅰ
@@ -50,7 +102,7 @@ tags:
 
      * 如果合并后的最优解是头尾都没选，那就说明 着实不需要这两个2333
 
-  *  打家劫舍Ⅲ  【树形dp】
+  *  打家劫舍Ⅲ  【树形dp】==！！没做完&整理==
 
      *  
 
@@ -96,6 +148,31 @@ tags:
   * [常用方法2](https://github.com/hexi519/leetcode_prac/blob/666e94e8c76107980729f0b23a9e621f77671dfb/403FrogJump.py#L65)：使用额外的、低查找开销的数据结构存储经常要查找的东西。这里使用hashMap存储可用的action, 所以每次就不是搜数组，而是搜一个集合，且由于只存前一步可达的，也就是有效的action，所以相当于剪了很多枝。O(n\^3)-->O(n^2)，且前面的常熟会比较低
 
 ----
+
+
+
+==区间dp？？==
+
+* [ ] [413 等差数列划分题解](https://leetcode-cn.com/problems/arithmetic-slices/solution/dong-tai-gui-hua-by-dream_day-2/)  这个虽然不是精选，但是感觉还不错
+* [ ] 446 等差数列划分2
+  * 什么时候用hash table来优化...就是一个状态跟之前的稀疏状态集有关联的时候 用于优化存储
+
+
+
+
+
+----
+
+二维动态规划
+
+* 64. Minimum Path Sum (Medium) 
+* 542. 01 Matrix (Medium) 
+
+
+
+
+
+---
 
 
 

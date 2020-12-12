@@ -1,5 +1,5 @@
 ---
-title: pythonConfig
+[title: pythonConfig
 top: false
 cover: false
 toc: true
@@ -19,4 +19,3 @@ tags:
 import wheel.pep425tags
 print(wheel.pep425tags.get_supported())
 ```
-
