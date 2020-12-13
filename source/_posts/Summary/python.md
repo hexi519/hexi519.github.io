@@ -172,7 +172,7 @@ tags:
 * **loc**可以接收整数或整数列表或布尔列表以及Series，而**iloc**中接收的参数只能为整数或整数列表或布尔列表，不能使用布尔Series，如果要用就必须使用.values()把dataframe里面的列表拿出来
 * 索引不要用浮点数，否则在切片索引的时候，[2: ]就表示的不是索引的下标从第二个开始了，而是用比大小的方式去看哪些行的索引值比2大，都拿出来
 * [ ]的索引方式中，比较灵活。有几种方式：
-    
+  
     * 索引index：
         1. data[3:5] 数字的话，就是索引行的绝对位置，就算index也是数字，也不要混淆啊！
             * 这个和data.iloc[3:5]效果是一样的(Series和DataFrame都适用)
@@ -185,7 +185,7 @@ tags:
         如果index是str类型，data["label"]默认也是索引column（最标准的写法还是loc[:,"label"]）
     
         > 注意，我个人测试的时候loc对于Series也是不会报错的，但是我还是不建议。因为容易混肴，Series没必要用loc，具体的含义我也搞不清楚
-    
+  
 * [快速标量索引]:当只需要取一个元素时，at和iat方法能够提供更快的实现
 > 看到区间索引，其实目前觉得差不多了。没必要再学更多了
 
@@ -251,4 +251,37 @@ tags:
   > 用 `subplots` 创建一个画板，同时也创建了一个绘图子区域 `axes`。画板赋值给了 `fig`，绘画子区域赋值给了 `ax`。这样一来，所有 `fig.***` 都是对整个画板进行操作，所有 `ax.***` 都是对这个 Aexs 子区域进行操作。
 
 * **fig.xx 如果用于处理ax内部的属性，比如轴的刻度范围之类的，其实都是对ax.xx的api的封装**，所以掌握ax.xx才是王道 和 最正确的方式
+
+
+
+
+
+# 整型数的大小
+
+* [refer1:最小占量](https://zxi.mytechroad.com/blog/desgin/python%E4%B8%AD%E7%9A%84%E6%95%B4%E5%9E%8B%E5%8D%A0%E5%A4%9A%E5%B0%91%E4%B8%AA%E5%AD%97%E8%8A%82?)
+* [refer2:可以无限大](https://www.zhihu.com/question/65014572)
+
+64位系统，至少是24个字节，每次增量是4。python取消了long类型，所以，存储的数据大小是无限大的，取决于你的内存大小
+
+
+
+# collections.defaultdict和dict区别
+
+[refer](https://blog.csdn.net/accumulate_zhang/article/details/78758898)
+
+```python
+>>> from collections import defaultdict
+# 用dict得非常小心...
+>>> b = dict()
+>>> b.get(3)
+>>> b[3]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 3
+
+# 使用defaultdict就不用检查是否存在这个key	
+>>> a = defaultdict(int)
+>>> a[3]
+0
+```
 

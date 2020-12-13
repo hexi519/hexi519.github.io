@@ -61,6 +61,24 @@ tags:
 
 
 
+
+
+# 刷题时常犯的错误/积累的经验
+
+* 二维矩阵中常常在初始化结果矩阵的时候, 把行和列搞反,导致有时候正方形的样例可以通过,但是矩形的就不行了
+
+    ```python
+    rowNum,colNum = len(matrix), len(matrix[0])
+    dist = [[20000] * colNum for _ in range(rowNum)]
+    ```
+
+* deque的API其实更像list
+  * pop( ) , popleft( ) 
+  * append( ) ,appendleft( )
+  * extend( ) ,extendleft( )
+
+
+
 # reference
 
 * [周植的博客]()

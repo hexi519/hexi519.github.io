@@ -102,9 +102,9 @@ tags:
 
      * 如果合并后的最优解是头尾都没选，那就说明 着实不需要这两个2333
 
-  *  打家劫舍Ⅲ  【树形dp】==！！没做完&整理==
+  * 打家劫舍Ⅲ  【树形dp】==！！没做完&整理==
 
-     *  
+     
 
 
 * 403Frog Jump 青蛙过河
@@ -153,24 +153,56 @@ tags:
 
 ==区间dp？？==
 
-* [ ] [413 等差数列划分题解](https://leetcode-cn.com/problems/arithmetic-slices/solution/dong-tai-gui-hua-by-dream_day-2/)  这个虽然不是精选，但是感觉还不错
-* [ ] 446 等差数列划分2
+* [413 等差数列划分题解](https://leetcode-cn.com/problems/arithmetic-slices/solution/dong-tai-gui-hua-by-dream_day-2/)  这个虽然不是精选，但是感觉还不错
+
+  > 以A[i]结尾的子等差序>列的**头指针位置**就比以A[i-1]结尾的子等差序列的**头指针位置**的**选择多一位**，这样也就dp[i] = 1 + dp[i-1]
+
+* [x] ==446 等差数列划分2==  (做是做完了，题目也理解完了，但是感觉很生硬，后续还要复盘一遍)
+
+  * [这个对为什么用hash Table 讲得很到位](https://www.cnblogs.com/grandyang/p/6057934.html)
+
   * 什么时候用hash table来优化...就是一个状态跟之前的稀疏状态集有关联的时候 用于优化存储
-
-
+  * 经验法则就是：处理连续的子问题的时候，要找O(n)的解； 处理非连续的子问题的时候，要找O(n^2^)的解
 
 
 
 ----
 
-二维动态规划
+**<u>二维动态规划</u>**
 
-* 64. Minimum Path Sum (Medium) 
-* 542. 01 Matrix (Medium) 
+* [x] 64. Minimum Path Sum (Medium) 
+
+* [x] 542. 01 Matrix (Medium)  求出每个1距离最近的0的距离长度
+
+  * 动归的思路是可以，[官方题解](https://leetcode-cn.com/problems/01-matrix/solution/01ju-zhen-by-leetcode-solution/)给出的一个insight就是：矩阵上某个点的信息传播，可以只从左上方和右下方进行传播。
+  * 但我觉得这里，官方题解给的bfs思路更好理解一些...
+
+  
+
+* [x] 221. [最大正方形](https://leetcode-cn.com/problems/maximal-square/) & 1277[统计全为 1 的正方形子矩阵](https://leetcode-cn.com/problems/count-square-submatrices-with-all-ones/)
+
+  二维的，跟矩阵有关的，都是dp\[i][j] 表示(i,j)为一个范围的边界点的一个值（这里就是以(i,j)为右下角的矩阵的最大边长）。
+
+  至于为什么是右下角而不是左上角或者其他角，其实都可以，选右下角主要是为了可以方便矩阵从第一行第一个，往右、往下遍历，这个比较符合人类的直觉。
+
+  * 一次递归要用到左边,上面,左上角的信息,可以用两个一维数组压缩空间,还可以用一个一维+两个临时变量进行压缩
+
+    * [ ] 就是221不知道为啥越压缩,时空性能越差....	
+      * [ ] 先看下[人家](https://leetcode.com/problems/count-square-submatrices-with-all-ones/discuss/643429/Python-DP-Solution-%2B-Thinking-Process-Diagrams-(O(mn)-runtime-O(1)-space)怎么做性能优化的吧...说不定是我优化的方式错了...
+
+  * 至于为什么这么递推,可以看下[这个题解](https://leetcode-cn.com/problems/count-square-submatrices-with-all-ones/solution/tong-ji-quan-wei-1-de-zheng-fang-xing-zi-ju-zhen-2/)的简单证明
+
+  * 1277的思路我觉得看[这个讲解](https://leetcode-cn.com/problems/count-square-submatrices-with-all-ones/solution/tong-ji-quan-wei-1-de-zheng-fang-xing-zi-ju-zhen-f/)更靠谱...
+
+    > $\underset{i}{\sum}$宽度为 i 的正方形的个数
 
 
 
-
+* 小总结
+  * 一般的递归就是考虑左边、上面、左上，再难一点就是从多个角度传递消息（目前221可以看出来从左上和右下两个角度传递消息就差不多了），但这种实际上也不是很好想，所以可以退而求其次：
+  * 其实矩阵也是一种规整的图，用搜索的思想也很不错
+    * 如果想到是的dfs，大概率就是一个比较差的暴力，想办法剪枝 或者 进化/优化到dp
+    * 可以往bfs想，一般都还不错 ( e.g.1277 )
 
 ---
 
