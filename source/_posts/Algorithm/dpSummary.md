@@ -52,7 +52,7 @@ tags:
 
 # dp分类
 
-* [序列型](https://leetcode-cn.com/circle/article/kQfS5s/) 和 [常见普通题型及状态表示](https://leetcode-cn.com/circle/article/VFZEXA/)  【内含题目和习题】  [周植大佬的博客也不错啊！](https://wnjxyk.tech/117.html)（还有个DP的intro还没来得及看）
+* [周植：序列型](https://leetcode-cn.com/circle/article/kQfS5s/) 和 [周植：常见普通题型及状态表示](https://leetcode-cn.com/circle/article/VFZEXA/)  【内含题目和习题】  [周植大佬的博客也不错啊！](https://wnjxyk.tech/117.html)（还有个DP的intro还没来得及看）
   * [ ] 主动转移和被动转移 目前还没有看明白，在后一个blog里面
 
 * [ ] [搜索：犹豫就会败北](https://www.bilibili.com/video/BV1Y7411N7Bn)  万物皆可搜索！
@@ -72,16 +72,14 @@ tags:
     dist = [[20000] * colNum for _ in range(rowNum)]
     ```
 
-* deque的API其实更像list
-  * pop( ) , popleft( ) 
-  * append( ) ,appendleft( )
-  * extend( ) ,extendleft( )
 
 
 
 # reference
 
-* [周植的博客]()
+* b站[nat8023](https://space.bilibili.com/149758)大佬讲得挺好
+
+* [周植的博客](https://wnjxyk.keji.moe/algorithm/algorithm-abc/sequence-dp)
 
   > 序列型和升级型的DP的总结，还列举除了不少题目
 

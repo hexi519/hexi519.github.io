@@ -27,8 +27,14 @@ tags:
 
 # 闭包 & nonlocal
 
-* [nonlocal](nonlocal)
+* [nonlocal和global区别](https://zhuanlan.zhihu.com/p/41030153)
+
+  global的作用对象是全局变量，nonlocal的作用对象是外层变量（很显然就是闭包的情况）。
+
+  注意，只有函数内的函数才是闭包，函数内的语句块，不算是闭包。
+
 * [闭包](https://segmentfault.com/a/1190000004461404)
+	
 	* 其中几个作用：节省开销，将函数与某个参数绑定
 	* 装饰器就是一种闭包
 	
@@ -37,20 +43,22 @@ tags:
 
 # python,numpy,pandas 切片&索引
 
+## python list & numpy的索引 异同
+
 * python ( list ) 支持的索引 和 np数组支持索引的区别
 
   ```bash
-  >>a[1][1]	# 索引
+  >> a[1][1]	# 索引
   5
-  >>a[1]
+  >> a[1]
   [4,5,6]
-  >>a[1][:]	# 也支持切片
+  >> a[1][:]	# 也支持切片
   [4,5,6]
-  >>a[1,1]"""相当于a[1,1]被认为是a[(1,1)],不支持元组索引"""
+  >> a[1,1]"""相当于a[1,1]被认为是a[(1,1)],不支持元组索引"""
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
   TypeError: list indices must be integers, not tuple
-  >>a[:,1]
+  >> a[:,1]
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
   TypeError: list indices must be integers, not tuple
@@ -80,12 +88,58 @@ tags:
   listData[0,2][1]	# 当然错误，listData[1,3]都无法支持更别说listData[1,3][2]了
   	# 但是np可以这样"稀疏检索"(我自己发明的词汇)
   npData[0,2][1]	# 但是这样是错误的，因为npData[1,3]是一个具体的元素
-  npData[ [0,2],1 ] # 这样才是对的
+  npData[ [0,2],1 ] # 这样才是对的，但就是这样，listData也不支持
   ```
 
-  * 另外要注意的是：**<u>np数组返回的都是视图</u>**，除非具体到某个元素，否则修改视图的内容，原内容都会变。但是list<u>切片索引</u>返回的就是一份复制的。
 
-    > * [ ] 这里其实有点迷糊了，尤其是下面的例子，为何listData\[1][:]就是浅拷贝，npDatap\[1][:]就是深拷贝...==要查下 "numpy视图和副本"相关的理解下...==
+
+## numpy & pandas的索引 异同
+
+  > reference：[ndarray对象和pandas中DataFrame对象的索引方法及对比](https://blog.csdn.net/S_o_l_o_n/article/details/80875804)
+  >
+  > 目前能得到的结论就是 pandas的DataFrame尽量用iloc的方式去索引
+
+
+
+### 先说结论
+
+<u>为了更好的记忆和统一索引方式</u>，pandas使用的时候请一律使用**<u> df.iloc</u>** ,这个时候就跟numpy的习惯用法一致了。
+
+
+
+### 再说原因 和 细节
+
+* pds 是基于 numpy构建起来的数据	结构
+* 没有 df[ i , j ] 的索引方法，df\[ i ]\[ j ] 也和list/numpy不一样，是先索引列，再索引行（numpy实际上是从外向内索引，对于二维的来说就是先索引行再索引列了） 。
+  * 注意，df\[ i ]\[ j ]索引的时候，第一个维度一定要使用 标签，有（大多数）时候标签不一定是一个int，是一个str
+
+```python
+>>> listData=[ [1,2,3],[1,2,3],[1,2,3] ]
+>>> pdData = pd.DataFrame(listData,columns = ['a','b','c'],index=['d','e','f'])
+>>> pdData['c']['f']	# 正确
+>>> pdData['c'][2]	# 正确，第二个索引不一定要使用标签(因为pdData['c']实际上是一个Series了,Series的索引是int还是str没所谓)
+>>> pdData[2][2]  # 错误，第一个索引还是要对应于columns的标签的，除非使用iloc
+```
+
+​		pdData  :  ![image-20201218145959545](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202012/18/150002-412342.png)
+
+* df.iloc\[i]\[j] 和df.iloc[i,j] 就和numpy的一样了，而且 i 与 j 应该全为int，而不是str了( 就算index和columns都可能是str的情况下 )，如果贸然写columns/index对应的str标签，反而会报错
+* 对应于iloc就是loc了，iloc要求索引下标全都是int，这里就要求严格与index/columns对应（大多数时候是string）
+
+```python
+>>> pdData.loc["d","a"] # 正确，索引就应该是string，和DataFrame的标签一致
+>>> pdData.loc["d"][1]	# 正确，因为pdData.loc["d"]实际上就是检出了Series,Series的索引是int还是str没所谓
+```
+
+
+
+## 视图与索引
+
+**<u>np数组返回的都是视图</u>**，除非具体到某个元素，否则修改视图的内容，原内容都会变（including 切片）。
+
+**list除了<u>切片</u>返回的是一份副本**，其余都是返回视图。
+
+	> 所以python想要实现列表元素的值传递时，一个方式就是参数使用 listData[:]
 
   ```bash
   >>> listData=[ [1,2,3],[1,2,3],[1,2,3] ]
@@ -105,13 +159,15 @@ tags:
   [[1, 2, 3], [1, 2, 11], [1, 2, 3]]
   ```
 
-* [ ] ==np索引和pandas索引的区别==
+> 注意，副本是一份浅拷贝 详情可以参考==[这个博客](https://blog.csdn.net/weixin_34416649/article/details/92878847)==举的例子
+>
+> 想要实现深拷贝，还是得调用 .deepcopy( )
 
-  > 看到一个似乎不错的reference：[ndarray对象和pandas中DataFrame对象的索引方法及对比](https://blog.csdn.net/S_o_l_o_n/article/details/80875804)
-  >
-  > 目前能得到的结论就是 pandas的DataFrame尽量用iloc的方式去索引
 
-* [切片索引、布尔索引、花式索引](https://blog.csdn.net/dake13/article/details/81302450)
+
+## 切片索引、布尔索引、花式索引
+
+* [refer : 切片索引、布尔索引、花式索引](https://blog.csdn.net/dake13/article/details/81302450)
 
   * 切片是快照，会改变原本元素，但是布尔和花式就不会
 
@@ -139,9 +195,6 @@ tags:
     >    * array[[1, 3,0], [1, 2,0]] 	**# 获取索引为(1,1)和(3,2)和(0,0)的元素**
     >
     > * 三维的：array[[0,0],[1,1],[2,2]]
-
-  * 
-
 
 
 

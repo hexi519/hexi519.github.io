@@ -2,7 +2,7 @@
 top: false
 cover: false
 mathjax: true
-title: pythonComplexity
+title: pythonComplexity&DataStructure
 date: 2020-12-05 15:17:45
 categories: Algorithm
 description: 有时候用python刷题不小心就out of time limit , 记录整理一些常用的python操作的时间复杂度。
@@ -19,6 +19,8 @@ tags:
 
 
 ---
+
+# 常用操作的基本复杂度
 
 很多时候我以为python会优化的...结果居然没有优化...
 
@@ -45,3 +47,20 @@ tags:
 * OJ tips
   * 一般来说时间复杂度是O(1e9) , 空间复杂度不要超过O(1e7)
 
+
+
+# 数据结构
+
+## deque
+
+其实API更像是list
+
+* pop( ) , popleft( )   --> return ele
+
+* append( ) ,appendleft( )
+* extend( ) ,extendleft( )
+
+## queue
+
+* add()
+* pop()

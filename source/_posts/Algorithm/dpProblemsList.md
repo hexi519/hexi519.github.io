@@ -198,6 +198,12 @@ tags:
 
 
 
+* 84
+
+* 85
+
+
+
 * 小总结
   * 一般的递归就是考虑左边、上面、左上，再难一点就是从多个角度传递消息（目前221可以看出来从左上和右下两个角度传递消息就差不多了），但这种实际上也不是很好想，所以可以退而求其次：
   * 其实矩阵也是一种规整的图，用搜索的思想也很不错
@@ -206,7 +212,88 @@ tags:
 
 ---
 
+**<u>分割类问题</u>**
 
+* 279 perfect squares
+
+  * 动归
+
+    其实我觉得就是一个多重背包，大家讲得那么复杂...标答和[我的解法](https://raw.githubusercontent.com/hexi519/leetcode_prac/master/279PerfectSquares.py)实际上就差别就在于内外循环的顺序，但我觉得我的更好用些...
+
+    时空复杂度O( $n*\sqrt{n}$ ) 和 O(n) 
+
+  * [ ] ~~这个的贪心的证明没有理解~~ 【不想学贪心了...】大部分还要证明...太烦了...
+
+  * 搜索
+
+    ![image-20201215205651863](https://gitee.com/HesyH/Image-Hosting/raw/master/image4typora/202012/15/205858-894216.png)
+
+    > 平时搜索练的少，但其实万物皆可搜索，所以后面做动归最好也跟上搜索的解法把... [这次](https://raw.githubusercontent.com/hexi519/leetcode_prac/master/279PerfectSquares.py)写上了
+
+    时空复杂度为O( $\sqrt{n}^h$ ) 和O(n) 这里h 不好确定，因为是树高，也就是最小需要的组合数，which我们也不好确定...	
+
+    看到b站题解里面说：==如果n超过10^6^,那么空间就开不下了...这个时候别无他法就只能搜索了==
+    
+    有一个在同一层的剪枝优化[]()
+
+
+
+==都是逆着的，要想想看为什么是逆着的  ask魏知宇？==  
+
+* 字符串上的文章
+
+  * [ ] 91 解码方法
+
+    * [ ] 还有hard的95 解码方式Ⅱ还没做...
+
+  * [ ] 139 单词拆分
+
+    
+
+---
+
+**<u>子序列问题</u>**
+
+> 因为子序列类型的问题，穷举出所有可能的结果都不容易，而动态规划算法做的就是穷举 + 剪枝，它俩天生一对儿。所以可以说只要涉及子序列问题，十有八九都需要动态规划来解决，往这方面考虑就对了。
+>
+
+* 最长上升子序列
+  * [红豆薏米的b站视频](https://www.bilibili.com/video/BV17t411E7Xn/?spm_id_from=333.788.videocard.0)把O(nlogn)的思想解释的很好
+  
+    最重要的是二分搜索的实现，可以参考[labuladong的小抄](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/er-fen-cha-zhao-xiang-jie)【着实不错】,要搞清楚你是要查找某个值还是查找某个值的左/右边界就可以，在这里<u>查找的是第一个比自己的大的元素的位置（如果已有跟自己相同的元素就什么也不更新就退出）</u>。
+  
+    > ==全部用左闭右闭的形式比较方便记忆==
+  
+    * 变体就是最长不减子序列，这个变体也是找第一个比自己大的元素的位置（但是如果有跟自己相同的元素，不会立马退出，会继续往上界搜寻）
+  
+      ```python
+      # 最长上升
+      if mid == num: break
+      # 最长不减
+      if mid == num: 
+          left=mid+1  # 继续往上界搜
+      ```
+  
+  * 值得注意的是，tail数组并不是最长上升子序列！（自己可以举反例想想）
+
+最长上升子序列(LISLIS):Longest Increasing Subsequence
+最长连续序列(LCSLCS):Longest Consecutive Sequence
+最长连续递增序列(LCISLCIS):Longest Continuous Increasing Subsequence
+最长公共子序列(LCSLCS):Longest Common Subsequence
+
+
+
+---
+
+**<u>背包问题</u>**
+
+==dp为什么是NP？==  感觉O(n)就可以验证啊，所以n也是n的多项式是么
+
+
+
+
+
+---
 
 * 1147段式回文
   * [ ] 双指针解法
